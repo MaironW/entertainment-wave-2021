@@ -1,0 +1,4 @@
+
+Create the main menu with QtQuick
+
+let the user select the menu by key input
