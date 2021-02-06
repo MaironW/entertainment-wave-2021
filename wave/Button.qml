@@ -23,16 +23,16 @@ Rectangle {
         MouseArea {
             anchors.fill: button
             onClicked: {
-                console.log(text.text)
-                if(button.on===false){
-                    buttonColor="white"
-                    textColor="blue"
-                    button.on=true
-                }else{
-                    buttonColor="blue"
-                    textColor="white"
-                    button.on=false
-                }
+//                console.log(text.text)
+//                if(button.on===false){
+//                    buttonColor="white"
+//                    textColor="blue"
+//                    button.on=true
+//                }else{
+//                    buttonColor="blue"
+//                    textColor="white"
+//                    button.on=false
+//                }
                 button.parent.toggleButton(button)
             }
         }

@@ -54,9 +54,11 @@ Window {
             }
 
             function toggleButton(selbutton){
-                for(var i=0; i< menuSelection.rows; ++i){
-                    if(menuSelection.children[i]===selbutton)
-                        console.log(i)
+                for(var i=0; i< menuSelection.rows; i++){
+                    menuSelection.children[i].buttonColor="blue"
+                    menuSelection.children[i].textColor="white"
+                selbutton.buttonColor="white"
+                selbutton.textColor="blue"
                 }
             }
         }
