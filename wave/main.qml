@@ -29,9 +29,11 @@ Window {
             anchors.horizontalCenter: page.horizontalCenter
             rows: 4; columns: 1; spacing: 3
 
+            property int currentButton: 0
+
             Button {
-                buttonColor: "blue"
-                textColor: "white"
+                buttonColor: "white"
+                textColor: "blue"
                 text: "TV"
             }
 
@@ -53,12 +55,26 @@ Window {
                 text: "SETTINGS"
             }
 
-            function toggleButton(selbutton){
+            focus: true
+            Keys.onPressed: {
+                if(event.key === Qt.Key_Up)
+                    menuSelection.currentButton--
+                    if(menuSelection.currentButton===-1)
+                        menuSelection.currentButton=3
+                    menuSelection.toggleButton()
+                if(event.key === Qt.Key_Down)
+                    menuSelection.currentButton++
+                    if(menuSelection.currentButton===4)
+                        menuSelection.currentButton=0
+                    menuSelection.toggleButton()
+            }
+
+            function toggleButton(){
                 for(var i=0; i< menuSelection.rows; i++){
                     menuSelection.children[i].buttonColor="blue"
                     menuSelection.children[i].textColor="white"
-                selbutton.buttonColor="white"
-                selbutton.textColor="blue"
+                menuSelection.children[menuSelection.currentButton].buttonColor="white"
+                menuSelection.children[menuSelection.currentButton].textColor="blue"
                 }
             }
         }
