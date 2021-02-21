@@ -1,4 +1,10 @@
+ok reate the main menu with QtQuick
+ok Let the user select the menu by key input
+ok Make changable menus
+---------------------------
 
-Create the main menu with QtQuick
+Create a date/clock display
 
-let the user select the menu by key input
+
+
+

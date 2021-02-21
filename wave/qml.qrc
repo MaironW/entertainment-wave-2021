@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Button.qml</file>
+        <file>Menu.qml</file>
+        <file>TV.qml</file>
     </qresource>
 </RCC>

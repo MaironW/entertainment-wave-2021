@@ -156,6 +156,7 @@ DIST          = ../../../Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf \
+		../wave/.qmake.stash \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -288,6 +289,7 @@ Makefile: ../wave/wave.pro ../../../Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -418,6 +420,7 @@ Makefile: ../wave/wave.pro ../../../Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf
 ../../../Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf:
 ../../../Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf:
 ../../../Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf:
@@ -491,8 +494,10 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_qml.cpp
 qrc_qml.cpp: ../wave/qml.qrc \
 		../../../Qt/6.0.1/gcc_64/bin/rcc \
+		../wave/TV.qml \
 		../wave/Button.qml \
-		../wave/main.qml
+		../wave/main.qml \
+		../wave/Menu.qml
 	/home/mairon/Qt/6.0.1/gcc_64/bin/rcc -name qml ../wave/qml.qrc -o qrc_qml.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
