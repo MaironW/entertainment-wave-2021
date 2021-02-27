@@ -52,9 +52,13 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../wave/main.cpp qrc_qml.cpp
+SOURCES       = ../wave/main.cpp \
+		../wave/scriptlauncher.cpp qrc_qml.cpp \
+		moc_scriptlauncher.cpp
 OBJECTS       = main.o \
-		qrc_qml.o
+		scriptlauncher.o \
+		qrc_qml.o \
+		moc_scriptlauncher.o
 DIST          = ../../../Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/common/unix.conf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/common/linux.conf \
@@ -176,7 +180,8 @@ DIST          = ../../../Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt/6.0.1/gcc_64/mkspecs/features/lex.prf \
-		../wave/wave.pro  ../wave/main.cpp
+		../wave/wave.pro ../wave/scriptlauncher.h ../wave/main.cpp \
+		../wave/scriptlauncher.cpp
 QMAKE_TARGET  = wave
 DESTDIR       = 
 TARGET        = wave
@@ -465,7 +470,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../wave/qml.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/6.0.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../wave/main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../wave/scriptlauncher.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../wave/main.cpp ../wave/scriptlauncher.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -497,7 +503,8 @@ qrc_qml.cpp: ../wave/qml.qrc \
 		../wave/TV.qml \
 		../wave/Button.qml \
 		../wave/main.qml \
-		../wave/Menu.qml
+		../wave/Menu.qml \
+		../wave/VideoPlayer.qml
 	/home/mairon/Qt/6.0.1/gcc_64/bin/rcc -name qml ../wave/qml.qrc -o qrc_qml.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -506,8 +513,86 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../Qt/6.0.1/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h ../../../Qt/6.0.1/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_scriptlauncher.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_scriptlauncher.cpp
+moc_scriptlauncher.cpp: ../wave/scriptlauncher.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtmetamacros.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qarraydataops.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbytearrayview.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qanystringview.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qutf8stringview.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringtokenizer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcompare.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiterable.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmetacontainer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcontainerinfo.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtaggedpointer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmath.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qproperty.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qpropertyprivate.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/QProcess \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qprocess.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiodevice.h \
+		moc_predefs.h \
+		../../../Qt/6.0.1/gcc_64/bin/moc
+	/home/mairon/Qt/6.0.1/gcc_64/bin/moc $(DEFINES) --include /home/mairon/Desktop/Rasp/build-wave-Desktop-Debug/moc_predefs.h -I/home/mairon/Qt/6.0.1/gcc_64/mkspecs/linux-g++ -I/home/mairon/Desktop/Rasp/wave -I/home/mairon/Qt/6.0.1/gcc_64/include -I/home/mairon/Qt/6.0.1/gcc_64/include/QtQuick -I/home/mairon/Qt/6.0.1/gcc_64/include/QtOpenGL -I/home/mairon/Qt/6.0.1/gcc_64/include/QtGui -I/home/mairon/Qt/6.0.1/gcc_64/include/QtQmlModels -I/home/mairon/Qt/6.0.1/gcc_64/include/QtQml -I/home/mairon/Qt/6.0.1/gcc_64/include/QtNetwork -I/home/mairon/Qt/6.0.1/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../wave/scriptlauncher.h -o moc_scriptlauncher.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -518,7 +603,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
@@ -635,11 +720,116 @@ main.o: ../wave/main.cpp ../../../Qt/6.0.1/gcc_64/include/QtGui/QGuiApplication 
 		../../../Qt/6.0.1/gcc_64/include/QtCore/qversionnumber.h \
 		../../../Qt/6.0.1/gcc_64/include/QtCore/qmetaobject.h \
 		../../../Qt/6.0.1/gcc_64/include/QtQml/qqmlerror.h \
-		../../../Qt/6.0.1/gcc_64/include/QtQml/qqmlabstracturlinterceptor.h
+		../../../Qt/6.0.1/gcc_64/include/QtQml/qqmlabstracturlinterceptor.h \
+		../../../Qt/6.0.1/gcc_64/include/QtQml/QQmlContext \
+		../../../Qt/6.0.1/gcc_64/include/QtQml/qqmlcontext.h \
+		../wave/scriptlauncher.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/QProcess \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qprocess.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiodevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../wave/main.cpp
+
+scriptlauncher.o: ../wave/scriptlauncher.cpp ../wave/scriptlauncher.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtmetamacros.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qarraydataops.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbytearrayview.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qanystringview.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qutf8stringview.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringtokenizer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcompare.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiterable.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmetacontainer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcontainerinfo.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtaggedpointer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmath.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qproperty.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qpropertyprivate.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/QProcess \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qprocess.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/QDebug \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qshareddata_impl.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qstringconverter.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/QDir \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qdir.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qfile.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qfileinfo.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qdatetime.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qcalendar.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.0.1/gcc_64/include/QtCore/qvariant.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scriptlauncher.o ../wave/scriptlauncher.cpp
 
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp
+
+moc_scriptlauncher.o: moc_scriptlauncher.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_scriptlauncher.o moc_scriptlauncher.cpp
 
 ####### Install
 

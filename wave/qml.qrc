@@ -4,5 +4,6 @@
         <file>Button.qml</file>
         <file>Menu.qml</file>
         <file>TV.qml</file>
+        <file>VideoPlayer.qml</file>
     </qresource>
 </RCC>

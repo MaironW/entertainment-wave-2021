@@ -1,5 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
+#include "scriptlauncher.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +20,10 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
+    ScriptLauncher launcher;
+    QQmlContext *context = engine.rootContext();
+    context->setContextProperty("scriptLauncher", &launcher);
 
     return app.exec();
 }

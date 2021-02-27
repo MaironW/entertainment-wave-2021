@@ -10,7 +10,7 @@ Rectangle {
         id: menuText
         text: "TV"
         y: 70
-        anchors.horizontalCenter: tv.horizontalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: 36
         color: "white"
         font.family: "VCR OSD Mono"
@@ -19,7 +19,7 @@ Rectangle {
     Grid {
         id: menuSelection
         x: 4; anchors.top: menuText.bottom; anchors.topMargin: 30
-        anchors.horizontalCenter: tv.horizontalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         rows: 3; columns: 1; spacing: 3
 
         property int currentButton: 0
@@ -76,6 +76,7 @@ Rectangle {
                 console.log("MTV")
             if(children[currentButton].text==="VHS")
                 console.log("VHS")
+                scriptLauncher.launchScript("my80stv.sh")
             if(children[currentButton].text==="COMMERCIALS")
                 console.log("COMMERCIALS")
         }

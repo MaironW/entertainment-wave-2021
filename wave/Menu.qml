@@ -10,7 +10,7 @@ Rectangle {
         id: menuText
         text: "MENU"
         y: 70
-        anchors.horizontalCenter: menu.horizontalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: 36
         color: "white"
         font.family: "VCR OSD Mono"
@@ -19,7 +19,7 @@ Rectangle {
     Grid {
         id: menuSelection
         x: 4; anchors.top: menuText.bottom; anchors.topMargin: 30
-        anchors.horizontalCenter: menu.horizontalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         rows: 4; columns: 1; spacing: 3
 
         property int currentButton: 0
