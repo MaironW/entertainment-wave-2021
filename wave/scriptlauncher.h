@@ -12,6 +12,7 @@ class ScriptLauncher : public QObject
 public:
     explicit ScriptLauncher(QObject *parent = 0);
     Q_INVOKABLE void launchScript(QString script);
+    Q_INVOKABLE void launchVideo(QString video);
 
 private:
     QProcess *m_process;

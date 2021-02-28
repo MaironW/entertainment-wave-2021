@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtWebKit 3.0
 
 Rectangle {
     id: videoplayer
@@ -6,18 +7,12 @@ Rectangle {
     height: 480
     color: "blue"
 
-//    WebView{
-//        title: webview
-//        url: "https://youtube.com/embed/6fBZBntjEOA"
-//        width: parent.width
-//        height: parent.height
-//        x: 0
-//        y: 0
-//        enabled: true
-//    }
+    WebView{
+        title: webview
+        url: "https://youtube.com/embed/6fBZBntjEOA"
+    }
 
 }
-
 
 
 

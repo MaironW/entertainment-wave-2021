@@ -76,14 +76,18 @@ Rectangle {
 
         function selectMenu(){
             pageLoader.focus = true
-            if(children[currentButton].text==="TV")
+            if(children[currentButton].text==="TV"){
                 pageLoader.source = "TV.qml"
-            if(children[currentButton].text==="VIDEOGAME")
+            }
+            else if(children[currentButton].text==="VIDEOGAME"){
                 console.log("VIDEOGAME")
-            if(children[currentButton].text==="RADIO")
+            }
+            else if(children[currentButton].text==="RADIO"){
                 console.log("RADIO")
-            if(children[currentButton].text==="SETTINGS")
+            }
+            else if(children[currentButton].text==="SETTINGS"){
                 console.log("SETTINGS")
+            }
         }
     }
 }

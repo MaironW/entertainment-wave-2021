@@ -27,7 +27,7 @@ Rectangle {
         Button {
             buttonColor: "white"
             textColor: "blue"
-            text: "MTV"
+            text: "JOY"
         }
 
         Button {
@@ -72,13 +72,18 @@ Rectangle {
 
         function selectMenu(){
             pageLoader.focus = true
-            if(children[currentButton].text==="MTV")
-                console.log("MTV")
-            if(children[currentButton].text==="VHS")
+            if(children[currentButton].text==="JOY"){
+                console.log("JOY")
+                scriptLauncher.launchVideo("https://www.youtube.com/watch?v=vgbMONXc9Cs")
+//                scriptLauncher.launchScript("youtube.sh")
+            }
+            else if(children[currentButton].text==="VHS"){
                 console.log("VHS")
                 scriptLauncher.launchScript("my80stv.sh")
-            if(children[currentButton].text==="COMMERCIALS")
+            }
+            else if(children[currentButton].text==="COMMERCIALS"){
                 console.log("COMMERCIALS")
+            }
         }
     }
 }

@@ -1,12 +1,14 @@
 ok create the main menu with QtQuick
 ok Let the user select the menu by key input
 ok Make changable menus
+ok Run My80'sTV 
+ok Run Youtube Videos (using mpv, that is external)
+ok Run Bob Ross Videos
 ---------------------------
 
-Create a date/clock display
-Run My80'sTV 
-Run Bob Ross Videos
+Run Youtube videos nativelly
 Start Emulators
-
+Create a layer that covers the screen till the videos start playing
+Create a date/clock display
 
 
