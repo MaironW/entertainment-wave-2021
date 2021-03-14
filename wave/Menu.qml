@@ -54,11 +54,11 @@ Rectangle {
             if(event.key === Qt.Key_Up)
                 currentButton--
                 if(currentButton===-1)
-                    currentButton=3
+                    currentButton=rows-1
                 toggleButton()
             if(event.key === Qt.Key_Down)
                 currentButton++
-                if(currentButton===4)
+                if(currentButton===rows)
                     currentButton=0
                 toggleButton()
             if(event.key === Qt.Key_Return)
@@ -81,6 +81,7 @@ Rectangle {
             }
             else if(children[currentButton].text==="VIDEOGAME"){
                 console.log("VIDEOGAME")
+                scriptLauncher.launchScript("retroarch.sh")
             }
             else if(children[currentButton].text==="RADIO"){
                 console.log("RADIO")

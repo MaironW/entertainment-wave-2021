@@ -504,7 +504,9 @@ qrc_qml.cpp: ../wave/qml.qrc \
 		../wave/Button.qml \
 		../wave/main.qml \
 		../wave/Menu.qml \
-		../wave/VideoPlayer.qml
+		../wave/MTV.qml \
+		../wave/VideoPlayer.qml \
+		../wave/MusicList.qml
 	/home/mairon/Qt/6.0.1/gcc_64/bin/rcc -name qml ../wave/qml.qrc -o qrc_qml.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

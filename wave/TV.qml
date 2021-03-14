@@ -27,7 +27,7 @@ Rectangle {
         Button {
             buttonColor: "white"
             textColor: "blue"
-            text: "JOY"
+            text: "MTV"
         }
 
         Button {
@@ -39,7 +39,7 @@ Rectangle {
         Button {
             buttonColor: "blue"
             textColor: "white"
-            text: "COMMERCIALS"
+            text: "CABLE"
         }
 
         focus: true
@@ -48,11 +48,11 @@ Rectangle {
             if(event.key === Qt.Key_Up)
                 currentButton--
                 if(currentButton===-1)
-                    currentButton=2
+                    currentButton=rows-1
                 toggleButton()
             if(event.key === Qt.Key_Down)
                 currentButton++
-                if(currentButton===3)
+                if(currentButton===rows)
                     currentButton=0
                 toggleButton()
             if(event.key === Qt.Key_Return)
@@ -72,17 +72,18 @@ Rectangle {
 
         function selectMenu(){
             pageLoader.focus = true
-            if(children[currentButton].text==="JOY"){
-                console.log("JOY")
-                scriptLauncher.launchVideo("https://www.youtube.com/watch?v=vgbMONXc9Cs")
-//                scriptLauncher.launchScript("youtube.sh")
+            if(children[currentButton].text==="MTV"){
+                pageLoader.source = "MTV.qml"
+//                console.log("MTV")
+//                scriptLauncher.launchVideo("https://www.youtube.com/watch?v=_hI0qMtdfng")
             }
             else if(children[currentButton].text==="VHS"){
                 console.log("VHS")
-                scriptLauncher.launchScript("my80stv.sh")
+                scriptLauncher.launchVideo("https://www.youtube.com/watch?v=vgbMONXc9Cs")
             }
-            else if(children[currentButton].text==="COMMERCIALS"){
-                console.log("COMMERCIALS")
+            else if(children[currentButton].text==="CABLE"){
+                console.log("CABLE")
+                scriptLauncher.launchScript("my80stv.sh")
             }
         }
     }

@@ -5,7 +5,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    visibility: "FullScreen"
+//    visibility: "FullScreen"
     title: qsTr("Entertainmentwave 2021")
 
     Item {

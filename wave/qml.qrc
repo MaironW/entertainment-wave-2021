@@ -5,5 +5,7 @@
         <file>Menu.qml</file>
         <file>TV.qml</file>
         <file>VideoPlayer.qml</file>
+        <file>MTV.qml</file>
+        <file>MusicList.qml</file>
     </qresource>
 </RCC>

@@ -73,9 +73,10 @@ Interface:
 	|						|
 	+-----------------------+
 	
+	
 Hardware needed:
 	- RaspberriPi 4
-	- Adaptador HDMI RCA(AV) ou cabo P2 RCA
+	- Cabo P2 RCA
 	- TV CRT
 	
 Software needed:
@@ -98,7 +99,7 @@ Software flow:
 		if select TV, it will open the TV menu
 			if select MTV, it will list available music videos (local and online) and a random button
 			if select VHS, it will list available movies and tv shows
-			if select COMMERCIALS, it will just start playing random retro commercials
+			if select CABLE, it will run My80'sTV
 			*All of these media will be playing from OMXPlayer, from command line
 			*The Player must be configured to enable these options: Play, Pause, Stop (exit), Last, Next, Rewind and Forward
 			*Icons must apper over the video screen to indicate the actions
