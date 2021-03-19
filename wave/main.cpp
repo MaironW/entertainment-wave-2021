@@ -3,6 +3,7 @@
 #include <QQmlContext>
 
 #include "scriptlauncher.h"
+#include "fileio.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,6 +25,8 @@ int main(int argc, char *argv[])
     ScriptLauncher launcher;
     QQmlContext *context = engine.rootContext();
     context->setContextProperty("scriptLauncher", &launcher);
+
+    qmlRegisterType<FileIO, 1>("FileIO",1,0,"FileIO");
 
     return app.exec();
 }

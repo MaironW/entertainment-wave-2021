@@ -2,8 +2,8 @@ import QtQuick 2.12
 
 Rectangle {
     id: tv
-    width: 640
-    height: 480
+    width: mw.width
+    height: mw.height
     color: "blue"
 
     Text {

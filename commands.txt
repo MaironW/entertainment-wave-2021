@@ -8,3 +8,8 @@ firefox -new-window -kiosk https://www.my80stv.com/
 xdotool search "Mozilla Firefox" windowactivate --sync key --clearmodifiers F F F space
 
 firefox -new-window -kiosk https://www.my80stv.com/ & xdotool sleep 5 search "Mozilla Firefox" windowactivate --sync key --clearmodifiers F F F space
+
+* Download video and play it locally
+
+youtube-dl -o - "https://www.youtube.com/watch?v=_hI0qMtdfng" | tee Media/Enjoy_Yoursef.mp4 | mpv -
+

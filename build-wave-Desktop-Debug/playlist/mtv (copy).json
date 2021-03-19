@@ -1,0 +1,18 @@
+[
+    {
+    	"title": "Enjoy Yourself",
+    	"source": "https://www.youtube.com/watch?v=_hI0qMtdfng"
+    },
+    {
+        "title": "Joy of Painting",
+        "source": "https://www.youtube.com/watch?v=vgbMONXc9Cs"
+    },
+    {
+    	"title": "Never Gonna Give You Up",
+    	"source": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+  	{
+    	"title": "Never Gonna Give You Up Local",
+    	"source": "../Media/astley.mp4"
+    }
+]

@@ -2,8 +2,8 @@ import QtQuick 2.12
 
 Rectangle {
     id: menu
-    width: 640
-    height: 480
+    width: mw.width
+    height: mw.height
     color: "blue"
 
     Text {
@@ -88,6 +88,7 @@ Rectangle {
             }
             else if(children[currentButton].text==="SETTINGS"){
                 console.log("SETTINGS")
+                scriptLauncher.launchScript("gen_playlist.sh")
             }
         }
     }

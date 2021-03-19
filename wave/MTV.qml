@@ -1,9 +1,10 @@
 import QtQuick 2.12
+import FileIO 1.0
 
 Rectangle {
     id: tv
-    width: 640
-    height: 480
+    width: mw.width
+    height: mw.height
     color: "black"
 
     Text {
@@ -16,6 +17,8 @@ Rectangle {
         font.family: "VCR OSD Mono"
     }
 
+    ListModel { id: dataPlaylist }
+
 
     Rectangle {
         width: 400; height: 200
@@ -23,13 +26,30 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         color: "black"
 
+        FileIO {
+            id:filePlaylist
+            source: "playlist/mtv.json"
+            onError: console.log(msg)
+        }
+
+        Component.onCompleted: {
+            var JsonString = filePlaylist.read()
+            var JsonObject = JSON.parse(JsonString)
+            for(var i=0; i< JsonObject.length; i++){
+                dataPlaylist.append({
+                                 "title": JsonObject[i].title,
+                                 "source": JsonObject[i].source
+                                 })
+            }
+        }
+
         Component {
             id: musicDelegate
             Item {
                 width: 400; height: 20
                 Column {
                     Text {
-                        text: name
+                        text: title
                         color: "white"
                         font.family: "VCR OSD MONO"
                         font.pixelSize: 20
@@ -38,17 +58,15 @@ Rectangle {
 
                 Keys.onPressed: {
                     if(event.key === Qt.Key_Return)
-                        scriptLauncher.launchVideo(link)
+                        scriptLauncher.launchVideo(source)
                 }
             }
-
-
         }
 
         ListView {
             id: musicList
             anchors.fill: parent
-            model: MusicList {}
+            model: dataPlaylist
             delegate: musicDelegate
             highlight: Rectangle { color: "blue" }
             focus: true

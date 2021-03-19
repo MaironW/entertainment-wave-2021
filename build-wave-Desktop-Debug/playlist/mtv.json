@@ -1,10 +1,22 @@
 [
     {
-    	"name": "Enjoy Yourself",
-    	"source": "https://www.youtube.com/watch?v=_hI0qMtdfng"
-    }
+        "title": "Enjoy_Yoursef.mp4",
+        "source": "/home/mairon/Desktop/Rasp/Media/Enjoy_Yoursef.mp4"
+    },
     {
-        "name": "Joy of Painting",
-        "source": "https://www.youtube.com/watch?v=vgbMONXc9Cs"
+        "title": "Joy_of_Painting.mp4",
+        "source": "/home/mairon/Desktop/Rasp/Media/Joy_of_Painting.mp4"
+    },
+    {
+        "title": "astley.mp4",
+        "source": "/home/mairon/Desktop/Rasp/Media/astley.mp4"
+    },
+    {
+        "title": "idle.mp4",
+        "source": "/home/mairon/Desktop/Rasp/Media/idle.mp4"
+    },
+    {
+        "title": "idle.webm",
+        "source": "/home/mairon/Desktop/Rasp/Media/idle.webm"
     }
 ]
