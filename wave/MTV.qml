@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.0
 import FileIO 1.0
 
 Rectangle {

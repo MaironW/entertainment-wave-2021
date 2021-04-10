@@ -2,14 +2,34 @@
 
 firefox -new-window -kiosk https://www.my80stv.com/
 
-
 *Send key input for a running software
 
 xdotool search "Mozilla Firefox" windowactivate --sync key --clearmodifiers F F F space
 
 firefox -new-window -kiosk https://www.my80stv.com/ & xdotool sleep 5 search "Mozilla Firefox" windowactivate --sync key --clearmodifiers F F F space
 
-* Download video and play it locally
+*Download video and play it locally
 
 youtube-dl -o - "https://www.youtube.com/watch?v=_hI0qMtdfng" | tee Media/Enjoy_Yoursef.mp4 | mpv -
+
+*Download Youtube Playlist
+
+youtube-dl -cio "%(title)s.%(ext)s" <link>
+
+	-c continua donwload onde parou
+	-i continua caso haja erro (video indisponivel)
+	-t usa o nome do video
+	
+youtube-dl -cit --playlist-start 5 --playlist-end 9 <link>
+	
+	baixa apenas os vídeos de 5 a 9	
+	
+youtube-dl -cit --playlist-items 4,6,15 <link>
+	
+	baixa os videos 4, 6 e 15
+	
+*Play an entire playlist from a directory with mpv
+	
+mpv --shuffle <directory>/**
+	
 

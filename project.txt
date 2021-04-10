@@ -22,10 +22,11 @@ Interface:
 	Entertainment Wave 2021
 	+-----------------------+	
 	|						|
-	|	[TV]	[VIDEOGAME]	|
+	|	[TV]				|
+	|	[VIDEOGAME]			|
+	|	[RADIO]				|
+	|	[SETTINGS]			|
 	|						|
-	|						|
-	|	[RADIO]	[SETTINGS]	|
 	|						|
 	+-----------------------+
 	

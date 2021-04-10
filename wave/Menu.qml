@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.0
 
 Rectangle {
     id: menu
@@ -81,7 +81,7 @@ Rectangle {
             }
             else if(children[currentButton].text==="VIDEOGAME"){
                 console.log("VIDEOGAME")
-                scriptLauncher.launchScript("retroarch.sh")
+                scriptLauncher.launchScript("emulationstation.sh")
             }
             else if(children[currentButton].text==="RADIO"){
                 console.log("RADIO")
