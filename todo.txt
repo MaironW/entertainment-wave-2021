@@ -55,3 +55,22 @@ The main feature is a random button. It must play anything.
 
 Use Gamepad input
 
+
+Run on raspberry boot
+
+	bootsel = [emulationstation,wave,startx]
+	switch bootsel:
+		case emulationstation:
+			bootsel = wave
+			run emulationstation
+		case startx:
+			bootsel = wave
+			run startx
+		case wave:
+			run startx wave in kiosk mode
+		default:
+			bootsel = wave
+			exit
+	
+
+
