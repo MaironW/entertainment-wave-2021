@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'fileio.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.3)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.8)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'fileio.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.11.3. It"
+#error "This file was generated using the moc from 5.12.8. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -51,7 +51,7 @@ QT_MOC_LITERAL(9, 60, 4) // "data"
 static const uint qt_meta_data_FileIO[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        5,   14, // methods
@@ -95,7 +95,7 @@ static const uint qt_meta_data_FileIO[] = {
 void FileIO::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        FileIO *_t = static_cast<FileIO *>(_o);
+        auto *_t = static_cast<FileIO *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->sourceChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
@@ -126,7 +126,7 @@ void FileIO::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
     }
 #ifndef QT_NO_PROPERTIES
     else if (_c == QMetaObject::ReadProperty) {
-        FileIO *_t = static_cast<FileIO *>(_o);
+        auto *_t = static_cast<FileIO *>(_o);
         Q_UNUSED(_t)
         void *_v = _a[0];
         switch (_id) {
@@ -134,7 +134,7 @@ void FileIO::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
-        FileIO *_t = static_cast<FileIO *>(_o);
+        auto *_t = static_cast<FileIO *>(_o);
         Q_UNUSED(_t)
         void *_v = _a[0];
         switch (_id) {
@@ -146,10 +146,14 @@ void FileIO::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
 #endif // QT_NO_PROPERTIES
 }
 
-QT_INIT_METAOBJECT const QMetaObject FileIO::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_FileIO.data,
-      qt_meta_data_FileIO,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject FileIO::staticMetaObject = { {
+    &QObject::staticMetaObject,
+    qt_meta_stringdata_FileIO.data,
+    qt_meta_data_FileIO,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *FileIO::metaObject() const
@@ -180,7 +184,7 @@ int FileIO::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 5;
     }
 #ifndef QT_NO_PROPERTIES
-   else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
         _id -= 1;

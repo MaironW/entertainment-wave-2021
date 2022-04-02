@@ -6,5 +6,7 @@
         <file>TV.qml</file>
         <file>VideoPlayer.qml</file>
         <file>MTV.qml</file>
+        <file>Cable.qml</file>
+        <file>VHS.qml</file>
     </qresource>
 </RCC>

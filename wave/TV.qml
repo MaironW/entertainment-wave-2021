@@ -74,16 +74,14 @@ Rectangle {
             pageLoader.focus = true
             if(children[currentButton].text==="MTV"){
                 pageLoader.source = "MTV.qml"
-//                console.log("MTV")
-//                scriptLauncher.launchVideo("https://www.youtube.com/watch?v=_hI0qMtdfng")
             }
             else if(children[currentButton].text==="VHS"){
-                console.log("VHS")
-                scriptLauncher.launchVideo("https://www.youtube.com/watch?v=vgbMONXc9Cs")
+//                console.log("VHS")
+//                scriptLauncher.launchVideo("https://www.youtube.com/watch?v=vgbMONXc9Cs")
+                pageLoader.source = "VHS.qml"
             }
             else if(children[currentButton].text==="CABLE"){
-                console.log("CABLE")
-                scriptLauncher.launchScript("my80stv.sh")
+                pageLoader.source = "Cable.qml"
             }
         }
     }
