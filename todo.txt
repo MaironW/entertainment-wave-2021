@@ -11,6 +11,10 @@ ok Read the json and create the video playlist
 ok Handle a video playlist
 ok When the playlist directories get ready, auto fill the json file to load them
 ok Handle a yotube playlist
+
+Control the application with joystick
+Install Qt on the RaspberryPi
+Create the autostart to the application on RPi using openbox
 ---------------------------
 
 The player must play the entire playlist
