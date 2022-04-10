@@ -1,4 +1,6 @@
-QT += quick
+QT += qml \
+      quick \
+      gamepad
 
 CONFIG += c++11
 

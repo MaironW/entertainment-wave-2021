@@ -15,7 +15,6 @@ for category in categories:
     files.sort()
 
     for file in files:
-        print(file)
         source = os.path.abspath(mediasource+'/'+category+'/'+file)
         # name = os.path.splitext(file)[0]
         name = file
