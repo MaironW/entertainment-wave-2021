@@ -34,3 +34,18 @@ mpv --shuffle <directory>/**
 	
 *Change window manager
 sudo update-alternatives --config x-session-manager
+sudo update-alternatives --set x-session-manager /usr/bin/startlxde-pi
+sudo update-alternatives --set x-session-manager /usr/bin/openbox-session
+
+*Change line in a file using bash
+sed -i 'Ns/.*/new-line-text/' file.txt
+where N = line number
+
+*Run script on startup
+~/.profile
+if test -t 0 -a -t 1
+then
+	bash mystartup.sh
+fi
+
+
