@@ -32,4 +32,5 @@ youtube-dl -cit --playlist-items 4,6,15 <link>
 	
 mpv --shuffle <directory>/**
 	
-
+*Change window manager
+sudo update-alternatives --config x-session-manager
