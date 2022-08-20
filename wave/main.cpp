@@ -1,9 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QDebug>
 
 #include "scriptlauncher.h"
 #include "fileio.h"
+#include "gamepad.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,13 +22,16 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
-    engine.load(url);
 
-    ScriptLauncher launcher;
     QQmlContext *context = engine.rootContext();
+    ScriptLauncher launcher;
     context->setContextProperty("scriptLauncher", &launcher);
 
     qmlRegisterType<FileIO, 1>("FileIO",1,0,"FileIO");
 
+    Gamepad gp;
+    context->setContextProperty("Gamepad", &gp);
+
+    engine.load(url);
     return app.exec();
 }

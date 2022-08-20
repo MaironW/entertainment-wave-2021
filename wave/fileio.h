@@ -12,15 +12,15 @@ public:
                READ source
                WRITE setSource
                NOTIFY sourceChanged)
-    explicit FileIO(QObject *parent = 0);
+    explicit FileIO(QObject *parent = nullptr);
 
     Q_INVOKABLE QString read();
     Q_INVOKABLE bool write(const QString& data);
 
-    QString source() { return mSource; };
+    QString source() { return mSource; }
 
 public slots:
-    void setSource(const QString& source) { mSource = source; };
+    void setSource(const QString& source) { mSource = source; }
 
 signals:
     void sourceChanged(const QString& source);

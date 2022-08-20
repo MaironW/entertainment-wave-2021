@@ -21,7 +21,6 @@ void ScriptLauncher::launchScript(QString script)
 
     m_process->waitForFinished();
     m_process->terminate();
-
 }
 
 void ScriptLauncher::launchVideo(QString video)
@@ -31,6 +30,20 @@ void ScriptLauncher::launchVideo(QString video)
     arguments << "-fs" << video;
     m_process->setProgram("mpv");
     m_process->setArguments(arguments);
+    m_process->startDetached();
+
+    m_process->waitForFinished();
+    m_process->terminate();
+}
+
+void ScriptLauncher::launchTerminal(QString command)
+{
+    QStringList arguments;
+
+    arguments << "-e" << command;
+    m_process->setProgram("lxterminal");
+    m_process->setArguments(arguments);
+    m_process->setWorkingDirectory(QString(QDir::homePath()));
     m_process->startDetached();
 
     m_process->waitForFinished();

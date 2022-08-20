@@ -1,1 +1,1 @@
-firefox -new-window -kiosk https://www.my80stv.com/ & xdotool sleep 5 search "Mozilla Firefox" windowactivate --sync key --clearmodifiers F F F space
+firefox -new-window -kiosk https://www.my80stv.com/ & xdotool sleep 5 search "Mozilla Firefox" windowactivate --sync sleep 7 key --clearmodifiers F F F P space

@@ -1,6 +1,6 @@
 QT += qml \
       quick \
-      gamepad
+      widgets
 
 CONFIG += c++11
 
@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
         fileio.cpp \
         main.cpp \
-        scriptlauncher.cpp
+        scriptlauncher.cpp \
+    gamepad.cpp
 
 HEADERS += \
     fileio.h \
-    scriptlauncher.h
+    scriptlauncher.h \
+    gamepad.h
 
 RESOURCES += qml.qrc
 
