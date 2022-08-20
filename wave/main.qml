@@ -6,7 +6,7 @@ Window {
     width: 640
     height: 480
     visible: true
-//    flags: Qt.FramelessWindowHint
+    flags: Qt.FramelessWindowHint
 //    visibility: "FullScreen"
     title: qsTr("Entertainmentwave 2021")
 

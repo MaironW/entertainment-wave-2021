@@ -46,6 +46,16 @@ void ScriptLauncher::launchTerminal(QString command)
     m_process->setWorkingDirectory(QString(QDir::homePath()));
     m_process->startDetached();
 
+    // bring window to front of wave main screen
+    QProcess window_to_front;
+    window_to_front.setProgram("xdotool");
+    QStringList xdotool_args;
+    xdotool_args << "search" << "--name" << "pi@raspberrypi: ~" << "windowactivate";
+    window_to_front.setArguments(xdotool_args);
+    window_to_front.start();
+    window_to_front.waitForFinished();
+    window_to_front.terminate();
+
     m_process->waitForFinished();
     m_process->terminate();
 }
