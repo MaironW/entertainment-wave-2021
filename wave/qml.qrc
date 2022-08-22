@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>Button.qml</file>
-        <file>Menu.qml</file>
-        <file>TV.qml</file>
-        <file>VideoPlayer.qml</file>
-        <file>MTV.qml</file>
-        <file>Cable.qml</file>
-        <file>VHS.qml</file>
+        <file>qml/main.qml</file>
+	<file>qml/Menu.qml</file>
+	<file>qml/TV.qml</file>
+	<file>qml/MTV.qml</file>
+	<file>qml/VHS.qml</file>
+	<file>qml/Button.qml</file>
+	<file>qml/Cable.qml</file>
+	<file>qml/MusicList.qml</file>
     </qresource>
 </RCC>

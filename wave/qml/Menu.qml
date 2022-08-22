@@ -50,26 +50,6 @@ Rectangle {
 
         focus: true
 
-        Connections{
-            target: Gamepad
-            onNewCommand: {
-                if(action === 0){
-                    if(button === 13)
-                        menuSelection.currentButton--
-                        if(menuSelection.currentButton===-1)
-                            menuSelection.currentButton=menuSelection.rows-1
-                        menuSelection.toggleButton()
-                    if(button === 14 || button === 8)
-                        menuSelection.currentButton++
-                        if(menuSelection.currentButton===menuSelection.rows)
-                            menuSelection.currentButton=0
-                        menuSelection.toggleButton()
-                    if(button === 1 || button === 9)
-                        menuSelection.selectMenu()
-                }
-            }
-        }
-
         Keys.onPressed: {
             if(event.key === Qt.Key_Up)
                 currentButton--

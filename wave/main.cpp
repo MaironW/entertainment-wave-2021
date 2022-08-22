@@ -5,7 +5,6 @@
 
 #include "scriptlauncher.h"
 #include "fileio.h"
-#include "gamepad.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +15,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
@@ -28,9 +27,6 @@ int main(int argc, char *argv[])
     context->setContextProperty("scriptLauncher", &launcher);
 
     qmlRegisterType<FileIO, 1>("FileIO",1,0,"FileIO");
-
-    Gamepad gp;
-    context->setContextProperty("Gamepad", &gp);
 
     engine.load(url);
     return app.exec();

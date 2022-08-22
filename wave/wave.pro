@@ -12,17 +12,17 @@ SOURCES += \
         fileio.cpp \
         main.cpp \
         scriptlauncher.cpp \
-    gamepad.cpp
 
 HEADERS += \
     fileio.h \
     scriptlauncher.h \
-    gamepad.h
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    script.qrc \
+    playlist.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+QML_IMPORT_PATH = qml/
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
