@@ -7,5 +7,12 @@
         <file>qml/VHS.qml</file>
         <file>qml/Button.qml</file>
         <file>qml/Cable.qml</file>
+        <file>qml/MusicList.qml</file>
+        <file>script/gen_playlist.sh</file>
+        <file>script/my70stv.sh</file>
+        <file>script/my80stv.sh</file>
+        <file>script/my90stv.sh</file>
+        <file>script/videoloop.sh</file>
+        <file>script/youtube.sh</file>
     </qresource>
 </RCC>

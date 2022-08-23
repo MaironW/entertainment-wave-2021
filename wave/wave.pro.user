@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.8.2, 2022-08-21T19:50:27. -->
+<!-- Written by QtCreator 4.8.2, 2022-08-22T21:15:11. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -93,7 +93,34 @@
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
       <value type="bool" key="Qt4ProjectManager.MakeStep.OverrideMakeflags">false</value>
      </valuemap>
-     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
+     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.2">
+      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">-r ../wave/playlist playlist</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Command">cp</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{buildDir}</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom Process Step</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
+     </valuemap>
+     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.3">
+      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">-p script</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Command">mkdir</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{buildDir}</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom Process Step</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
+     </valuemap>
+     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.4">
+      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">../wave/script/gen_playlist.py ../wave/script/gen_playlist.py ../wave/script/my*stv.sh ../wave/script/videoloop.sh script/</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Command">cp</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{buildDir}</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom Process Step</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
+     </valuemap>
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">5</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>

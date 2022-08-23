@@ -17,9 +17,7 @@ HEADERS += \
     fileio.h \
     scriptlauncher.h \
 
-RESOURCES += qml.qrc \
-    script.qrc \
-    playlist.qrc
+RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = qml/

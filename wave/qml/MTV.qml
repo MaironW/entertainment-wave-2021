@@ -28,7 +28,7 @@ Rectangle {
 
         FileIO {
             id:filePlaylist
-            source: "qrc:/playlist/mtv.json"
+            source: "/playlist/mtv.json"
             onError: console.log(msg)
         }
 

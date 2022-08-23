@@ -28,7 +28,7 @@ Rectangle {
 
         FileIO {
             id:filePlaylist
-            source: "playlist/vhs.json"
+            source: "/playlist/vhs.json"
             onError: console.log(msg)
         }
 

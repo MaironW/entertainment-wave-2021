@@ -53,16 +53,12 @@ OBJECTS_DIR   = ./
 SOURCES       = ../wave/fileio.cpp \
 		../wave/main.cpp \
 		../wave/scriptlauncher.cpp qrc_qml.cpp \
-		qrc_script.cpp \
-		qrc_playlist.cpp \
 		moc_fileio.cpp \
 		moc_scriptlauncher.cpp
 OBJECTS       = fileio.o \
 		main.o \
 		scriptlauncher.o \
 		qrc_qml.o \
-		qrc_script.o \
-		qrc_playlist.o \
 		moc_fileio.o \
 		moc_scriptlauncher.o
 DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
@@ -258,8 +254,6 @@ Makefile: ../wave/wave.pro /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++/qm
 		/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/lex.prf \
 		../wave/wave.pro \
 		../wave/qml.qrc \
-		../wave/script.qrc \
-		../wave/playlist.qrc \
 		/usr/lib/arm-linux-gnueabihf/libQt5Quick.prl \
 		/usr/lib/arm-linux-gnueabihf/libQt5Widgets.prl \
 		/usr/lib/arm-linux-gnueabihf/libQt5Gui.prl \
@@ -357,8 +351,6 @@ Makefile: ../wave/wave.pro /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++/qm
 /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/lex.prf:
 ../wave/wave.pro:
 ../wave/qml.qrc:
-../wave/script.qrc:
-../wave/playlist.qrc:
 /usr/lib/arm-linux-gnueabihf/libQt5Quick.prl:
 /usr/lib/arm-linux-gnueabihf/libQt5Widgets.prl:
 /usr/lib/arm-linux-gnueabihf/libQt5Gui.prl:
@@ -379,7 +371,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../wave/qml.qrc ../wave/script.qrc ../wave/playlist.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents ../wave/qml.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../wave/fileio.h ../wave/scriptlauncher.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../wave/fileio.cpp ../wave/main.cpp ../wave/scriptlauncher.cpp $(DISTDIR)/
@@ -406,9 +398,9 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_qml.cpp qrc_script.cpp qrc_playlist.cpp
+compiler_rcc_make_all: qrc_qml.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_qml.cpp qrc_script.cpp qrc_playlist.cpp
+	-$(DEL_FILE) qrc_qml.cpp
 qrc_qml.cpp: ../wave/qml.qrc \
 		/usr/lib/qt5/bin/rcc \
 		../wave/qml/VHS.qml \
@@ -417,25 +409,8 @@ qrc_qml.cpp: ../wave/qml.qrc \
 		../wave/qml/Cable.qml \
 		../wave/qml/main.qml \
 		../wave/qml/TV.qml \
-		../wave/qml/MTV.qml \
-		../wave/qml/MusicList.qml
+		../wave/qml/MTV.qml
 	/usr/lib/qt5/bin/rcc -name qml ../wave/qml.qrc -o qrc_qml.cpp
-
-qrc_script.cpp: ../wave/script.qrc \
-		/usr/lib/qt5/bin/rcc \
-		../wave/script/gen_playlist.sh \
-		../wave/script/videoloop.sh \
-		../wave/script/my70stv.sh \
-		../wave/script/my80stv.sh \
-		../wave/script/my90stv.sh \
-		../wave/script/youtube.sh
-	/usr/lib/qt5/bin/rcc -name script ../wave/script.qrc -o qrc_script.cpp
-
-qrc_playlist.cpp: ../wave/playlist.qrc \
-		/usr/lib/qt5/bin/rcc \
-		../wave/playlist/mtv.json \
-		../wave/playlist/vhs.json
-	/usr/lib/qt5/bin/rcc -name playlist ../wave/playlist.qrc -o qrc_playlist.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
@@ -484,12 +459,6 @@ scriptlauncher.o: ../wave/scriptlauncher.cpp ../wave/scriptlauncher.h
 
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp
-
-qrc_script.o: qrc_script.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_script.o qrc_script.cpp
-
-qrc_playlist.o: qrc_playlist.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_playlist.o qrc_playlist.cpp
 
 moc_fileio.o: moc_fileio.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_fileio.o moc_fileio.cpp

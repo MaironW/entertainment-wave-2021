@@ -1,6 +1,7 @@
 #include "fileio.h"
 #include <QFile>
 #include <QTextStream>
+#include <QCoreApplication>
 
 FileIO::FileIO(QObject *parent) :
     QObject(parent)
@@ -14,8 +15,7 @@ QString FileIO::read()
         emit error("source is empty");
         return QString();
     }
-
-    QFile file(mSource);
+    QFile file(QCoreApplication::applicationDirPath() + mSource);
     QString fileContent;
     if ( file.open(QIODevice::ReadOnly) ) {
         QString line;
