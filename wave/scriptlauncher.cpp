@@ -40,8 +40,8 @@ void ScriptLauncher::launchTerminal(QString command)
 {
     QStringList arguments;
 
-    arguments << "-e" << command;
-    m_process->setProgram("lxterminal");
+    arguments << "-fullscreen" << command;
+    m_process->setProgram("xterm");
     m_process->setArguments(arguments);
     m_process->setWorkingDirectory(QString(QDir::homePath()));
     m_process->startDetached();
