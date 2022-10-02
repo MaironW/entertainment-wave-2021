@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+# cvt 320 240
+xrandr --newmode CRT_240 6.00  320 336 360 400  240 243 247 252 -hsync +vsync
+xrandr --addmode Composite-1 CRT_240
+xrandr --output Composite-1 --fb 320x240 --mode CRT_240
