@@ -5,6 +5,7 @@
         <file>qml/TV.qml</file>
         <file>qml/MTV.qml</file>
         <file>qml/VHS.qml</file>
+	<file>qml/VHSlist.qml</file>
         <file>qml/Button.qml</file>
         <file>qml/Cable.qml</file>
     </qresource>

@@ -76,8 +76,6 @@ Rectangle {
                 pageLoader.source = "MTV.qml"
             }
             else if(children[currentButton].text==="VHS"){
-//                console.log("VHS")
-//                scriptLauncher.launchVideo("https://www.youtube.com/watch?v=vgbMONXc9Cs")
                 pageLoader.source = "VHS.qml"
             }
             else if(children[currentButton].text==="CABLE"){

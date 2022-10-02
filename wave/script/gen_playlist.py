@@ -1,32 +1,25 @@
 import os
 import json
 
+for mode in ['mtv', 'vhs']:
 
-print("So it worked... how interesting.")
-
-mediasource = "../../Media"
-
-categories = os.listdir(mediasource)
-categories.sort()
-
-for category in categories:
+    mediasource = '/home/pi/Videos/' + mode
     medialist = []
-    files = os.listdir(mediasource+'/'+category)
-    files.sort()
 
-    for file in files:
-        source = os.path.abspath(mediasource+'/'+category+'/'+file)
-        # name = os.path.splitext(file)[0]
-        name = file
+    for path, subdirs, files in os.walk(mediasource):
+        for name in files:
+            source = os.path.join(path, name)
+            collection = os.path.basename(path)
 
-        mediadict = {
-            "title":name,
-            "source":source
-        }
+            mediadict = {
+                "title": name,
+                "source": source,
+                "collection": collection
+            }
 
-        medialist.append(mediadict)
+            medialist.append(mediadict)
 
     json_object = json.dumps(medialist,indent=4)
 
-    with open('../playlist/'+category+'.json','w') as outfile:
+    with open('../playlist/'+mode+'.json','w') as outfile:
         outfile.write(json_object)

@@ -1,18 +1,7 @@
 [
     {
-        "title": "Enjoy_Yoursef.mp4",
-        "source": "/home/mairon/workspace/entertainment-wave-2021/Media/mtv/Enjoy_Yoursef.mp4"
-    },
-    {
-        "title": "Never Gonna Give You Up.mp4",
-        "source": "/home/mairon/workspace/entertainment-wave-2021/Media/mtv/Never Gonna Give You Up.mp4"
-    },
-    {
-        "title": "VHS Logos - Chimerical.mp4",
-        "source": "/home/mairon/workspace/entertainment-wave-2021/Media/mtv/VHS Logos - Chimerical.mp4"
-    },
-    {
-        "title": "idle.webm",
-        "source": "/home/mairon/workspace/entertainment-wave-2021/Media/mtv/idle.webm"
+        "title": "entering_the_plaza_assorted_vaporwave_mix_compilation_#2.mkv",
+        "source": "/home/pi/Videos/mtv/entering_the_plaza_assorted_vaporwave_mix_compilation_#2.mkv",
+        "collection": "mtv"
     }
 ]

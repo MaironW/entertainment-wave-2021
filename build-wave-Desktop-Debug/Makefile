@@ -406,6 +406,7 @@ qrc_qml.cpp: ../wave/qml.qrc \
 		../wave/qml/VHS.qml \
 		../wave/qml/Button.qml \
 		../wave/qml/Menu.qml \
+		../wave/qml/VHSlist.qml \
 		../wave/qml/Cable.qml \
 		../wave/qml/main.qml \
 		../wave/qml/TV.qml \
