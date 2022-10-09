@@ -1,11 +1,10 @@
 import QtQuick 2.0
-import FileIO 1.0
 
 Rectangle {
-    id: tv
+    id: mtv
     width: mw.width
     height: mw.height
-    color: "black"
+    color: "blue"
 
     Text {
         id: menuText
@@ -17,65 +16,62 @@ Rectangle {
         font.family: "VCR OSD Mono"
     }
 
-    ListModel { id: dataPlaylist }
-
-
-    Rectangle {
-        width: 400; height: 200
+    Grid {
+        id: menuSelection
         x: 4; anchors.top: menuText.bottom; anchors.topMargin: 30
         anchors.horizontalCenter: parent.horizontalCenter
-        color: "black"
+        rows: 2; columns: 1; spacing: 3
 
-        FileIO {
-            id:filePlaylist
-            source: "/playlist/mtv.json"
-            onError: console.log(msg)
+        property int currentButton: 0
+
+        Button {
+            buttonColor: "white"
+            textColor: "blue"
+            text: "SHUFFLE"
         }
 
-        Component.onCompleted: {
-            var JsonString = filePlaylist.read()
-            var JsonObject = JSON.parse(JsonString)
-            for(var i=0; i< JsonObject.length; i++){
-                dataPlaylist.append({
-                                 "title": JsonObject[i].title,
-                                 "source": JsonObject[i].source
-                                 })
+        Button {
+            buttonColor: "blue"
+            textColor: "white"
+            text: "COLLECTION"
+        }
+
+        focus: true
+
+        Keys.onPressed: {
+            if(event.key === Qt.Key_Up)
+                currentButton--
+                if(currentButton===-1)
+                    currentButton=rows-1
+                toggleButton()
+            if(event.key === Qt.Key_Down)
+                currentButton++
+                if(currentButton===rows)
+                    currentButton=0
+                toggleButton()
+            if(event.key === Qt.Key_Return)
+                selectMenu()
+            if(event.key === Qt.Key_Backspace)
+                pageLoader.source = "TV.qml"
+        }
+
+        function toggleButton(){
+            for(var i=0; i< rows; i++){
+                children[i].buttonColor="blue"
+                children[i].textColor="white"
+            children[currentButton].buttonColor="white"
+            children[currentButton].textColor="blue"
             }
         }
 
-        Component {
-            id: musicDelegate
-            Item {
-                width: 400; height: 20
-                Column {
-                    Text {
-                        text: title
-                        color: "white"
-                        font.family: "VCR OSD MONO"
-                        font.pixelSize: 20
-                    }
-                }
-
-                Keys.onPressed: {
-                    if(event.key === Qt.Key_Return)
-                        scriptLauncher.launchVideo(source)
-                }
+        function selectMenu(){
+            pageLoader.focus = true
+            if(children[currentButton].text==="COLLECTION"){
+                pageLoader.source = "MTVlist.qml"
             }
-        }
-
-        ListView {
-            id: musicList
-            anchors.fill: parent
-            model: dataPlaylist
-            delegate: musicDelegate
-            highlight: Rectangle { color: "blue" }
-            focus: true
-
-            Keys.onPressed: {
-                if(event.key === Qt.Key_Backspace)
-                    pageLoader.source = "TV.qml"
+            else if(children[currentButton].text==="SHUFFLE"){
+                scriptLauncher.launchScript("musicloop.sh")
             }
         }
     }
 }
-

@@ -3,10 +3,11 @@ import json
 
 for mode in ['mtv', 'vhs']:
 
-    mediasource = '/home/pi/Videos/' + mode
+    mediasource = '/media/usb_device/' + mode
     medialist = []
 
     for path, subdirs, files in os.walk(mediasource):
+        print(path,subdirs)
         for name in files:
             source = os.path.join(path, name)
             collection = os.path.basename(path)

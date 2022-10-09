@@ -408,6 +408,7 @@ qrc_qml.cpp: ../wave/qml.qrc \
 		../wave/qml/Menu.qml \
 		../wave/qml/VHSlist.qml \
 		../wave/qml/Cable.qml \
+		../wave/qml/MTVlist.qml \
 		../wave/qml/main.qml \
 		../wave/qml/TV.qml \
 		../wave/qml/MTV.qml

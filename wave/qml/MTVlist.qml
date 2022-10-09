@@ -2,18 +2,18 @@ import QtQuick 2.0
 import FileIO 1.0
 
 Rectangle {
-    id: tv
+    id: mtv_list
     width: mw.width
     height: mw.height
     color: "black"
 
     Text {
         id: menuText
-        text: "VHS"
+        text: "MTV"
         y: 70
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: 36
-        color: "white"
+        color: "violet"
         font.family: "VCR OSD Mono"
     }
 
@@ -27,7 +27,7 @@ Rectangle {
 
         FileIO {
             id:filePlaylist
-            source: "/playlist/vhs.json"
+            source: "/playlist/mtv.json"
             onError: console.log(msg)
         }
 
@@ -37,8 +37,7 @@ Rectangle {
             for(var i=0; i< JsonObject.length; i++){
                 dataPlaylist.append({
                                  "title": JsonObject[i].title,
-                                 "source": JsonObject[i].source,
-				 "collection": JsonObject[i].collection
+                                 "source": JsonObject[i].source
                                  })
             }
         }
@@ -49,16 +48,16 @@ Rectangle {
                 width: parent.width; height: 20
                 Column {
                     Text {
-			text: title
-			color: "white"
-			font.family: "VCR OSD MONO"
+                        text: title
+                        color: "violet"
+                        font.family: "VCR OSD MONO"
                         font.pixelSize: 20
                     }
                 }
 
                 Keys.onPressed: {
                     if(event.key === Qt.Key_Return)
-			 scriptLauncher.launchVideo(source)
+                        scriptLauncher.launchVideo(source)
                 }
             }
         }
@@ -68,12 +67,12 @@ Rectangle {
             anchors.fill: parent
             model: dataPlaylist
             delegate: musicDelegate
-            highlight: Rectangle { color: "blue" }
+            highlight: Rectangle { color: "midnightblue" }
             focus: true
 
             Keys.onPressed: {
                 if(event.key === Qt.Key_Backspace)
-                    pageLoader.source = "VHS.qml"
+                    pageLoader.source = "MTV.qml"
             }
         }
     }
