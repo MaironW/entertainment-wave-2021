@@ -21,57 +21,57 @@ Interface:
 	
 	Entertainment Wave 2021
 	+-----------------------+	
-	|						|
-	|	[TV]				|
-	|	[VIDEOGAME]			|
-	|	[RADIO]				|
-	|	[SETTINGS]			|
-	|						|
-	|						|
+	|			|
+	|	[TV]		|
+	|	[VIDEOGAME]	|
+	|	[RADIO]		|
+	|	[SETTINGS]	|
+	|			|
+	|			|
 	+-----------------------+
 	
 			TV MODE
 	+-----------------------+	
-	|						|
-	|	[MTV]				|
-	|						|
-	|	[VHS]				|
-	|						|
-	|	[COMMERCIALS]		|
-	|						|
+	|			|
+	|	[MTV]		|
+	|			|
+	|	[VHS]		|
+	|			|
+	|	[COMMERCIALS]	|
+	|			|
 	+-----------------------+
 	
 			VIDEOGAME
 	+-----------------------+	
-	|						|
+	|			|
 	|	[LIST OF CONSOLES]	|
-	|	* NES				|
-	|	* SNES				|
-	|	* ...				|
-	|	* PC				|
-	|						|
+	|	* NES		|
+	|	* SNES		|
+	|	* ...		|
+	|	* PC		|
+	|			|
 	+-----------------------+
 	
 			RADIO
 	+-----------------------+	
-	|						|
+	|			|
 	|	[JUST PLAYS MUSIC]	|
-	|	WITH COOL			|
-	|	WALLPAPER			|
-	|	SLIDESHOW			|
-	|	[SELECT ERA]		|
-	|						|
+	|	WITH COOL	|
+	|	WALLPAPER	|
+	|	SLIDESHOW	|
+	|	[SELECT ERA]	|
+	|			|
 	+-----------------------+
 	
 			SETTINGS
 	+-----------------------+	
-	|						|
-	|	[SOUND]				|
-	|						|
-	|	[VISUALS]			|
-	|						|
-	|	[OTHER]				|
-	|						|
+	|			|
+	|	[SOUND]		|
+	|			|
+	|	[VISUALS]	|
+	|			|
+	|	[OTHER]		|
+	|			|
 	+-----------------------+
 	
 	

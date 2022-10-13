@@ -11,20 +11,20 @@ ok Read the json and create the video playlist
 ok Handle a video playlist
 ok When the playlist directories get ready, auto fill the json file to load them
 ok Handle a yotube playlist
+ok Install Qt on the RaspberryPi
+ok Create the autostart to the application on the RPi using openbox
+ok The player must play the entire playlist 
+ok Create proper directories for each media
+ok Random option (Shuffle)
 
 Control the application with joystick
-Install Qt on the RaspberryPi
-Create the autostart to the application on RPi using openbox
 ---------------------------
 
-The player must play the entire playlist
-	https://securitronlinux.com/debian-testing/how-to-shuffle-play-a-directory-full-of-movies-with-mpv-on-linux/
 Keep the MTV aesthetic for the MTV menu
 Create a layer that covers the screen till the videos start playing
 Create a date/clock display
-Create proper directories for each media
-Filter video categories by tags
 
+Filter video categories by tags
 {
 	"title": "Enjoy_Yoursef.mp4",
 	"source": "/home/mairon/Desktop/Rasp/Media/Enjoy_Yoursef.mp4",
@@ -53,28 +53,4 @@ Filter video categories by tags
 		and will be show like that in a list to select a category
 "era" is used to filter content by age.
 	it makes more sense in the radio screen
-	
-The main feature is a random button. It must play anything.
-	
-
-Use Gamepad input
-
-
-Run on raspberry boot
-
-	bootsel = [emulationstation,wave,startx]
-	switch bootsel:
-		case emulationstation:
-			bootsel = wave
-			run emulationstation
-		case startx:
-			bootsel = wave
-			run startx
-		case wave:
-			run startx wave in kiosk mode
-		default:
-			bootsel = wave
-			exit
-	
-
 
