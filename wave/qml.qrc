@@ -10,5 +10,6 @@
         <file>qml/Cable.qml</file>
         <file>qml/Menu.qml</file>
         <file>qml/Exit.qml</file>
+        <file>qml/MenuTemplate.qml</file>
     </qresource>
 </RCC>

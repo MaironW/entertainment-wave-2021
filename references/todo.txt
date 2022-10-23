@@ -19,6 +19,7 @@ ok Random option (Shuffle)
 ok Refactor scripts
 
 Write a configuration file
+Use sound on entering a video
 Control the application with joystick
 ---------------------------
 
