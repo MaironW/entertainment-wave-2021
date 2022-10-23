@@ -9,5 +9,6 @@
         <file>qml/Button.qml</file>
         <file>qml/Cable.qml</file>
         <file>qml/Menu.qml</file>
+        <file>qml/Exit.qml</file>
     </qresource>
 </RCC>

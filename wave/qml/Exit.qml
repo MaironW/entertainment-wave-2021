@@ -1,14 +1,14 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: menu
+    id: exit
     width: mw.width
     height: mw.height
     color: "blue"
 
     Text {
         id: menuText
-        text: "MENU"
+        text: "EXIT"
         y: 70
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: 36
@@ -20,32 +20,20 @@ Rectangle {
         id: menuSelection
         x: 4; anchors.top: menuText.bottom; anchors.topMargin: 30
         anchors.horizontalCenter: parent.horizontalCenter
-        rows: 4; columns: 1; spacing: 3
+        rows: 2; columns: 1; spacing: 3
 
         property int currentButton: 0
 
         Button {
             buttonColor: "white"
             textColor: "blue"
-            text: "TV"
+            text: "POWER OFF"
         }
 
         Button {
             buttonColor: "blue"
             textColor: "white"
-            text: "VIDEOGAME"
-        }
-
-        Button {
-            buttonColor: "blue"
-            textColor: "white"
-            text: "RADIO"
-        }
-
-        Button {
-            buttonColor: "blue"
-            textColor: "white"
-            text: "EXIT"
+            text: "REBOOT"
         }
 
         focus: true
@@ -63,6 +51,8 @@ Rectangle {
                 toggleButton()
             if(event.key === Qt.Key_Return)
                 selectMenu()
+            if(event.key === Qt.Key_Backspace)
+                pageLoader.source = "Menu.qml"
         }
 
         function toggleButton(){
@@ -76,17 +66,11 @@ Rectangle {
 
         function selectMenu(){
             pageLoader.focus = true
-            if(children[currentButton].text==="TV"){
-                pageLoader.source = "TV.qml"
+            if(children[currentButton].text==="POWER OFF"){
+                scriptLauncher.launchCommand("shutdown",["now"])
             }
-            else if(children[currentButton].text==="VIDEOGAME"){
-                scriptLauncher.launchCommand("openbox","--exit")
-            }
-            else if(children[currentButton].text==="RADIO"){
-                scriptLauncher.launchTerminal("spotify")
-            }
-            else if(children[currentButton].text==="EXIT"){
-                pageLoader.source = "Exit.qml"
+            else if(children[currentButton].text==="REBOOT"){
+                scriptLauncher.launchCommand("reboot",["now"])
             }
         }
     }
