@@ -67,10 +67,10 @@ Rectangle {
         function selectMenu(){
             pageLoader.focus = true
             if(children[currentButton].text==="POWER OFF"){
-                scriptLauncher.launchCommand("shutdown",["now"])
+                scriptLauncher.launchCommand("sudo",["shutdown","now"])
             }
             else if(children[currentButton].text==="REBOOT"){
-                scriptLauncher.launchCommand("reboot",["now"])
+                scriptLauncher.launchCommand("sudo",["reboot","now"])
             }
         }
     }
