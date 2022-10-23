@@ -8,14 +8,11 @@ ScriptLauncher::ScriptLauncher(QObject *parent) :
 {
 }
 
-void ScriptLauncher::launchScript(QString script)
+void ScriptLauncher::launchCommand(QString command, QStringList arguments)
 {
-    QStringList arguments;
-
     m_process->setWorkingDirectory("script");
 
-    arguments << script;
-    m_process->setProgram("bash");
+    m_process->setProgram(command);
     m_process->setArguments(arguments);
     m_process->startDetached();
 
@@ -26,14 +23,8 @@ void ScriptLauncher::launchScript(QString script)
 void ScriptLauncher::launchVideo(QString video)
 {
     QStringList arguments;
-
     arguments << "-fs" << video;
-    m_process->setProgram("mpv");
-    m_process->setArguments(arguments);
-    m_process->startDetached();
-
-    m_process->waitForFinished();
-    m_process->terminate();
+    launchCommand("mpv",arguments);
 }
 
 void ScriptLauncher::launchTerminal(QString command)

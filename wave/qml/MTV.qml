@@ -66,11 +66,12 @@ Rectangle {
 
         function selectMenu(){
             pageLoader.focus = true
+            scriptLauncher.launchCommand("python3",["gen_playlist.py","/media/usb_device/mtv","mtv"])
             if(children[currentButton].text==="COLLECTION"){
                 pageLoader.source = "MTVlist.qml"
             }
             else if(children[currentButton].text==="SHUFFLE"){
-                scriptLauncher.launchScript("musicloop.sh")
+                scriptLauncher.launchCommand("bash",["videoloop.sh","/media/usb_device/mtv"])
             }
         }
     }

@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: tv
+    id: vhs
     width: mw.width
     height: mw.height
     color: "blue"
@@ -66,16 +66,13 @@ Rectangle {
 
         function selectMenu(){
             pageLoader.focus = true
+            scriptLauncher.launchCommand("python3",["gen_playlist.py","/media/usb_device/vhs","vhs"])
             if(children[currentButton].text==="COLLECTION"){
                 pageLoader.source = "VHSlist.qml"
             }
             else if(children[currentButton].text==="SHUFFLE"){
-                scriptLauncher.launchScript("videoloop.sh")
+                scriptLauncher.launchCommand("bash",["videoloop.sh","/media/usb_device/vhs"])
             }
         }
     }
 }
-
-
-
-

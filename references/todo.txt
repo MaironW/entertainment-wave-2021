@@ -16,7 +16,9 @@ ok Create the autostart to the application on the RPi using openbox
 ok The player must play the entire playlist 
 ok Create proper directories for each media
 ok Random option (Shuffle)
+ok Refactor scripts
 
+Write a configuration file
 Control the application with joystick
 ---------------------------
 

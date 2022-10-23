@@ -11,7 +11,7 @@ class ScriptLauncher : public QObject
 
 public:
     explicit ScriptLauncher(QObject *parent = nullptr);
-    Q_INVOKABLE void launchScript(QString script);
+    Q_INVOKABLE void launchCommand(QString command, QStringList arguments);
     Q_INVOKABLE void launchVideo(QString video);
     Q_INVOKABLE void launchTerminal(QString command);
 

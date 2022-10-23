@@ -20,7 +20,7 @@ Rectangle {
         id: menuSelection
         x: 4; anchors.top: menuText.bottom; anchors.topMargin: 30
         anchors.horizontalCenter: parent.horizontalCenter
-        rows: 4; columns: 1; spacing: 3
+        rows: 3; columns: 1; spacing: 3
 
         property int currentButton: 0
 
@@ -40,12 +40,6 @@ Rectangle {
             buttonColor: "blue"
             textColor: "white"
             text: "RADIO"
-        }
-
-        Button {
-            buttonColor: "blue"
-            textColor: "white"
-            text: "SETTINGS"
         }
 
         focus: true
@@ -80,22 +74,11 @@ Rectangle {
                 pageLoader.source = "TV.qml"
             }
             else if(children[currentButton].text==="VIDEOGAME"){
-                console.log("VIDEOGAME")
-                scriptLauncher.launchScript("emulationstation.sh")
+                scriptLauncher.launchCommand("openbox","--exit")
             }
             else if(children[currentButton].text==="RADIO"){
-                console.log("RADIO")
                 scriptLauncher.launchTerminal("spotify")
-            }
-            else if(children[currentButton].text==="SETTINGS"){
-                console.log("SETTINGS")
-                scriptLauncher.launchScript("gen_playlist.sh")
             }
         }
     }
 }
-
-
-
-
-

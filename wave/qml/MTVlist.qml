@@ -2,7 +2,7 @@ import QtQuick 2.0
 import FileIO 1.0
 
 Rectangle {
-    id: mtv_list
+    id: mtvlist
     width: mw.width
     height: mw.height
     color: "black"
@@ -18,7 +18,6 @@ Rectangle {
     }
 
     ListModel { id: dataPlaylist }
-
 
     Rectangle {
         width: 600; height: 260
@@ -77,4 +76,3 @@ Rectangle {
         }
     }
 }
-

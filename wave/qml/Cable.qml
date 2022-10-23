@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: tv
+    id: cable
     width: mw.width
     height: mw.height
     color: "blue"
@@ -72,22 +72,7 @@ Rectangle {
 
         function selectMenu(){
             pageLoader.focus = true
-            if(children[currentButton].text==="70s"){
-                console.log("70s")
-                scriptLauncher.launchScript("my70stv.sh")
-            }
-            else if(children[currentButton].text==="80s"){
-                console.log("80s")
-                scriptLauncher.launchScript("my80stv.sh")
-            }
-            else if(children[currentButton].text==="90s"){
-                console.log("90s")
-                scriptLauncher.launchScript("my90stv.sh")
-            }
+            scriptLauncher.launchCommand("bash",["myretrotvs.sh",children[currentButton].text])
         }
     }
 }
-
-
-
-
