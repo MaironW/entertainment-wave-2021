@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+# cvt 680 480
+xrandr --newmode CRT 25.00  680 696 760 840  480 483 493 500 -hsync +vsync
+xrandr --addmode Composite-1 CRT
+xrandr --output Composite-1 --fb 680x480 --panning 680x480 --mode CRT --transform 1,0,-30,0,1,-10,0,0,1 
+

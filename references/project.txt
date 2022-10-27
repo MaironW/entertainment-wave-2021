@@ -1,0 +1,130 @@
+[Entertainment Wave 2021]
+
+Features:
+	- Emulators: Play 80's to 90's games (or even Dreamcast)
+	- MTV: Play videoclips from 80's and 90's (vaporwave)
+	- TV: Play vintage TV programs
+		* Bob Ross
+		* Twin Peaks
+		* X-Files
+	- Radio: Play 80's and 90's songs
+		
+It must:
+	- Output AV 
+	- Connect to bluetooth devices
+	- Update content over the web
+	- Run spotify in background
+	- Startup on the application, without showing the OS
+	- All the menus must have sound and visual aesthetic
+
+Interface:
+	
+	Entertainment Wave 2021
+	+-----------------------+	
+	|			|
+	|	[TV]		|
+	|	[VIDEOGAME]	|
+	|	[RADIO]		|
+	|	[SETTINGS]	|
+	|			|
+	|			|
+	+-----------------------+
+	
+			TV MODE
+	+-----------------------+	
+	|			|
+	|	[MTV]		|
+	|			|
+	|	[VHS]		|
+	|			|
+	|	[COMMERCIALS]	|
+	|			|
+	+-----------------------+
+	
+			VIDEOGAME
+	+-----------------------+	
+	|			|
+	|	[LIST OF CONSOLES]	|
+	|	* NES		|
+	|	* SNES		|
+	|	* ...		|
+	|	* PC		|
+	|			|
+	+-----------------------+
+	
+			RADIO
+	+-----------------------+	
+	|			|
+	|	[JUST PLAYS MUSIC]	|
+	|	WITH COOL	|
+	|	WALLPAPER	|
+	|	SLIDESHOW	|
+	|	[SELECT ERA]	|
+	|			|
+	+-----------------------+
+	
+			SETTINGS
+	+-----------------------+	
+	|			|
+	|	[SOUND]		|
+	|			|
+	|	[VISUALS]	|
+	|			|
+	|	[OTHER]		|
+	|			|
+	+-----------------------+
+	
+	
+Hardware needed:
+	- RaspberriPi 4
+	- Cabo P2 RCA
+	- TV CRT
+	
+Software needed:
+	- Interface: QtQuick
+	- Emulators: RetroArch/RetroPie
+	- Videoplayer: OMXPlayer
+	- Audioplayer	
+	
+	https://github.com/KMNR/Rossberry
+	https://github.com/timatron/videolooper-raspbian
+	
+Hierarchy:
+	Raspberry Pi OS
+		RetroPie
+			EmulationStation
+		OMXPlayer
+		
+Software flow:
+	QtWidget Menu let the user select the mode
+		if select TV, it will open the TV menu
+			if select MTV, it will list available music videos (local and online) and a random button
+			if select VHS, it will list available movies and tv shows
+			if select CABLE, it will run My80'sTV
+			*All of these media will be playing from OMXPlayer, from command line
+			*The Player must be configured to enable these options: Play, Pause, Stop (exit), Last, Next, Rewind and Forward
+			*Icons must apper over the video screen to indicate the actions
+			
+		if select VIDEOGAME, it will run RetroPie with modified theme
+		
+		if select RADIO, it will open the RADIO menu
+			the user will have those options:
+				- 80's STATION
+				- 90's STATION
+				- EVERYTHING
+				- ENJOY YOURSELF
+			if select 80's, only music from the 80's will play
+			if select 90's, only music from the 90's will play
+			if select EVERYTHING, it will shuffle every music
+			if select ENJOY YOURSELF, it will play Vaporwave/FutureFunk music
+			*It should play local/spotify/youtube music
+			*The user must be able to select the source
+			*All these media will be playing from OMXPlayer
+			*Wallpaper slideshow must start together with the music
+			
+		if select SETTINGS, it will open the SETTINGS mode
+			SOUND must let the user choose the music that plays in bg
+			VISUALS must let the user activate or not filters on the screen and change the WALLPAPER
+			OTHER I still don't know but can be useful
+			 
+	

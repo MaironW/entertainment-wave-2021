@@ -1,6 +1,6 @@
 QT += qml \
       quick \
-      gamepad
+      widgets
 
 CONFIG += c++11
 
@@ -11,16 +11,16 @@ CONFIG += c++11
 SOURCES += \
         fileio.cpp \
         main.cpp \
-        scriptlauncher.cpp
+        scriptlauncher.cpp \
 
 HEADERS += \
     fileio.h \
-    scriptlauncher.h
+    scriptlauncher.h \
 
 RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+QML_IMPORT_PATH = qml/
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
