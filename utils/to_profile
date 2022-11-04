@@ -1,0 +1,8 @@
+# Please copy the following lines to the end of ~/.profile
+
+# startup routine
+
+if test -t 0 -a -t 1
+then
+	bash bootrun.sh
+fi

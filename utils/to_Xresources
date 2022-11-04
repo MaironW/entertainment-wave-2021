@@ -1,0 +1,5 @@
+# Please copy the following lines to ~/.Xresources
+
+xterm*faceName: 'Monospace'
+xterm*faceSize: 11
+xterm*internalBorder: 58

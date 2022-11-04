@@ -1,0 +1,8 @@
+# Please copy the following lines inside the block <keyboard> </keyboard> on the file ~/.config/openbox/rc.xml
+
+<!-- Launch Terminal -->
+<keybind key="C-A-t">
+  <action name="Execute">
+    <command>xterm -fullscreen</command>
+  </action>
+</keybind>

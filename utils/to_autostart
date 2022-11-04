@@ -1,0 +1,8 @@
+# Please copy the following lines to the end of ~/.config/openbox/autostart
+
+# Set screen resolution for CRT TV
+./home/pi/set_xrandr
+
+# Run wave in kiosk mode
+cd entertainment-wave-2021/build-wave-Desktop-Debug/
+./wave
