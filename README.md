@@ -88,5 +88,16 @@ xterm*faceName: 'Monospace'
 xterm*faceSize: 11
 xterm*internalBorder: 58
 ```
-
-
+To launch the terminal with Ctrl+Alt+T, edit the file `~/.config/openbox/rc.xml`:
+```
+<keyboard>
+...
+<!-- Launch Terminal -->
+<keybind key="C-A-t">
+  <action name="Execute">
+    <command>xterm -fullscreen</command>
+  </action>
+</keybind>
+...
+</keyboard>
+```
