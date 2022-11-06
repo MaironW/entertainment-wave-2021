@@ -1,6 +1,6 @@
 # entertainment-wave-2021
 
-## Installing
+## Base Installation
 
 The following steps were executed on a Raspberry Pi 4, with [RaspiOS installed first](https://www.raspberrypi.com/documentation/computers/getting-started.html) and [RetroPie installed over the OS](https://retropie.org.uk/docs/Manual-Installation/).
 I will just provide the basic steps for my configuration, although other Linux setups should be able to run it with the correct tweaks.
@@ -21,32 +21,28 @@ cp -r wave/script wave/playlist build-wave-Desktop-Debug/
 ```
 Here you can already run ./wave and see the menu screen.
 
-### Spotify-tui and Spotifyd
+## Spotify-tui and Spotifyd
 
-Please, follow the instalation steps on the repositories for [Spotify-tui](https://github.com/Rigellute/spotify-tui) and [Spotifyd](https://github.com/Spotifyd/spotifyd).
+Please, follow the installation steps on the repositories for [Spotify-tui](https://github.com/Rigellute/spotify-tui) and [Spotifyd](https://github.com/Spotifyd/spotifyd).
 
-### Configure the CRT resolution
+## Configure the CRT resolution
 
 I used this [Reddit post](https://www.reddit.com/r/RetroPie/comments/q91tlj/pi4_35mm_to_rca_composite_on_a_crt_240p_now/) as reference.
 
-The main RetroPie core configuratios and shadders are from the [Sakitoshi repository](https://github.com/Sakitoshi/retropie-crt-tvout). 
+The main RetroPie core configurations and shaders are from the [Sakitoshi repository](https://github.com/Sakitoshi/retropie-crt-tvout). 
 The most important aspect of this configuration is that Overscan is disabled by default on the Raspi configuration file, so each emulation core will crop the screen by itself. Keep that in mind for now.
 
-The [b0xspread repository](https://github.com/b0xspread/rpi4-crt) contains the vmodes_watcher.py, a scrip which waits for the Emulation Cores to load before changing the resolution to 240p. 
+The [b0xspread repository](https://github.com/b0xspread/rpi4-crt) contains the vmodes_watcher.py, a script which waits for the Emulation Cores to load before changing the resolution to 240p. 
 This will make sure that only the games will run on 240p, while other applications on the Pi will run on 480i.
 
-### Configure boot
+## Configure boot
 
 I prefer to use the boot script on my home directory, but that is optional.
 
 ```
 cp utils/bootrun.sh ~/
 ```
-Then you must need to edit the .profile file so the boot script will run as soon as the Pi is logged in.
-```
-nano ~/.profile
-```
-and add to the end of the file
+Then you must need to edit the `~/.profile` file so the boot script will run as soon as the Pi is logged in. Add the following lines to the end of the file:
 ```
 # startup routine
 
@@ -57,7 +53,7 @@ fi
 ```
 You should also set the Pi to auto login.
 
-### Configure Openbox to launch Wave by default
+## Configure Openbox to launch Wave by default
 
 If you are using RaspiOS, the window manager Openbox should be already installed on your machine.
 
@@ -72,11 +68,11 @@ cd entertainment-wave-2021/build-wave-Desktop-Debug/
 ./wave
 ```
 
-### Install and Configure XTerm as the main console
+## Install and Configure XTerm as the main console
 
-You may already noticed that using the default console for the Raspi is becoming dificult because of the Overscan.
+You may already have noticed that using the default console for the Raspi is becoming difficult because of Overscan.
 
-Because Spotify-tui relies on the terminal, it was better to use an stand alone terminal, configured according to my screen.
+Because Spotify-tui relies on the terminal, it was better to use a standalone terminal, configured according to my screen.
 
 ```
 sudo apt-get install xterm
