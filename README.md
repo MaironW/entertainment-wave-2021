@@ -97,3 +97,21 @@ To launch the terminal with Ctrl+Alt+T, edit the file `~/.config/openbox/rc.xml`
 ...
 </keyboard>
 ```
+
+## How to use
+
+### Wave Menu
+
+- Directional keys **up** and **down**: navigate through menu
+- **Enter**: select option
+- **Backspace**: return to last menu screen
+
+### Cable
+
+### MTV/VHS Collection
+
+### Terminal
+
+### Emulationstation
+
+### Radio
