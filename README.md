@@ -20,6 +20,7 @@ I will just provide the basic steps for my configuration, although other Linux s
 ```
 sudo apt-get update;
 sudo apt-get install qt5-default;
+sudo apt-get install qt5-qmake;
 sudo apt-get install qml-module-qtquick-controls;
 ```
 - Install VCR_OSD_MONO Font
@@ -30,7 +31,17 @@ sudo cp fonts/VCR_OSD_MONO_1.001.ttf /usr/share/fonts/
 ```
 cp -r wave/script wave/playlist build-wave-Desktop-Debug/
 ```
-Here you can already run ./wave and see the menu screen.
+Here you can already run `./wave` and see the menu screen.
+
+## Directories
+
+By default, I've mounted my USB stick on `/media/usb_device` with folders `mtv` and `vhs`. If you use the same path, everything should work fine.
+
+However, if your media is stored on another directory, it would be a good idea to change/remove the [line 4 on /utils/bootrun.sh](https://github.com/MaironW/entertainment-wave-2021/blob/d1dbef0a7153f674cfe4f1f06a3e976688047104/utils/bootrun.sh#L4) as well as change the path on files [MTV.qml](https://github.com/MaironW/entertainment-wave-2021/blob/master/wave/qml/MTV.qml) and [VHS.qml](https://github.com/MaironW/entertainment-wave-2021/blob/master/wave/qml/VHS.qml).
+
+After the change on the QML files, go to `build-wave-Desktop-Debug/` and run `make` to compile the application.
+
+Note: this is just an ugly workaround. My goal is to make this step easier in the future without the needing of changing source code and recompiling.
 
 ## Spotify-tui and Spotifyd
 
