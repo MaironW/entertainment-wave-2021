@@ -1,9 +1,13 @@
 # entertainment-wave-2021
 
+![Alt text](https://lh3.googleusercontent.com/pw/AL9nZEWEFOHr71fUpD8tdBFyfv1XvFd8ZUj3xU2qjyk3fn6GiPHXSZlprAU8bXTBwnhdnOfnNW3QAUM6Wxc1K0umEi_32tWnk8GqhozvpJoDud08Rhz1bL_s2sxnaNE4GHEl1w02j4SLVV7VEarsbeQKKZHW=w1291-h968-no?authuser=1 "Wave")
+
 This is entertertainment-wave-2021 or as I use to call it, just Wave (because it needed a name anyway). The main goal is to turn your RaspberryPi into a retro media center, able to play videos, music and games.
 
 This is a work-in-progress hobbyist project with no warranties and a lot of improvement possibilities.
 I will be happy to receive contributions in the form of Pull Requests or Issues on GitHub.
+
+You can find more info about the project on [Reddit](https://www.reddit.com/r/raspberry_pi/comments/xzuiwh/crt_tvvcr_trinitron_as_a_retro_media_player/) and [YouTube](https://www.youtube.com/watch?v=PuYOWk4aDo4).
 
 ## Licensing
 
