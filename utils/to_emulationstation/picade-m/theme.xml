@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+theme name:     PiCade
+author:         Anthony
+license:        creative commons CC-BY-NC-SA
+-->
+<theme>
+   <formatVersion>4</formatVersion>
+
+   <view name="system,basic,detailed,video">
+      <helpsystem name="help">
+         <pos>1 1</pos>
+      </helpsystem>
+      <image name="logo">
+         <path>./_inc/logos/${system.theme}.svg</path>
+      </image>
+      <image name="background" extra="true">
+         <origin>0 0</origin>
+         <pos>0 0</pos>
+         <size>1 1</size>
+         <path>./_inc/images/background.png</path>
+         <tile>false</tile>
+         <zIndex>1</zIndex>
+      </image>
+   </view>
+
+   <feature supported="carousel">
+      <view name="system">
+         <image name="border" extra="true">
+            <origin>0.5 0</origin>
+            <path>./_inc/images/border.png</path>
+            <size>0.29296875 0.005208333333333</size>
+            <pos>0.5 0.1953125</pos>
+         </image>
+         <carousel name="systemcarousel">
+            <origin>0.5 0.5</origin>
+            <pos>0.5 0.45</pos>
+            <type>horizontal</type>
+            <color>00000000</color>
+            <size>0.8 0.8</size>
+            <logoScale>1</logoScale>
+            <logoSize>0.6 0.6</logoSize>
+            <maxLogoCount>1</maxLogoCount>
+         </carousel>
+         <text name="systemInfo">
+            <origin>0.5 1</origin>
+            <pos>0.5 0.7</pos>
+            <color>CCCCCC</color>
+            <fontPath>./_inc/fonts/WorkSans-Bold.ttf</fontPath>
+            <fontSize>0.046875</fontSize>
+            <alignment>center</alignment>
+         </text>
+      </view>
+   </feature>
+
+   <view name="basic,detailed,video">
+      <image name="logo">
+         <origin>0.5 0</origin>
+         <maxSize>0.1953125 0.078125</maxSize>
+         <pos>0.5 0.078125</pos>
+      </image>
+      <image name="border" extra="true">
+         <origin>0.5 0</origin>
+         <path>./_inc/images/border.png</path>
+         <size>0.29296875 0.005208333333333</size>
+         <pos>0.5 0.1953125</pos>
+      </image>
+      <textlist name="gamelist">
+         <pos>0.125 0.240885416666667</pos>
+         <size>0.75 0.7</size>
+         <selectorColor>00000000</selectorColor>
+         <selectedColor>F2C10A</selectedColor>
+         <primaryColor>CCCCCC</primaryColor>
+         <secondaryColor>CCCCCC</secondaryColor>
+         <fontPath>./_inc/fonts/WorkSans-Bold.ttf</fontPath>
+         <forceUppercase>1</forceUppercase>
+         <fontSize>0.048</fontSize>
+         <alignment>center</alignment>
+         <lineSpacing>1.5</lineSpacing>
+         <zIndex>200</zIndex>
+      </textlist>
+   </view>
+
+   <view name="detailed,video">
+      <image name="logo">
+         <origin>0 1</origin>
+	 <maxSize>0.3 0.1</maxSize>
+         <pos>0.048828125 0.1553125</pos>
+      </image>
+      <image name="border" extra="true">
+         <origin>0 0</origin>
+         <pos>0.048828125 0.1953125</pos>
+      </image>
+      <text name="md_lbl_rating,md_lbl_developer,md_developer,md_lbl_publisher,md_publisher,md_lbl_playcount,md_playcount,md_lbl_lastplayed,md_lbl_players,md_players,md_lbl_releasedate,md_lbl_genre,md_genre,md_description">
+         <pos>1 1</pos>
+      </text>
+      <datetime name="md_lastplayed,md_releasedate">
+         <pos>1 1</pos>
+      </datetime>
+      <rating name="md_rating">
+         <pos>1 1</pos>
+      </rating>
+      <image name="md_image">
+         <origin>0.5 1</origin>
+         <pos>0.8 0.84</pos>
+         <zIndex>301</zIndex>
+         <size>0.3 0</size>
+      </image>
+      <image name="gamelist-fade" extra="true">
+         <origin>0 0</origin>
+         <path>./_inc/images/gamelist-fade.png</path>
+         <size>0.09765625 1</size>
+         <pos>0.537109375 0</pos>
+         <zIndex>300</zIndex>
+      </image>
+      <textlist name="gamelist">
+         <pos>0.048828125 0.240885416666667</pos>
+         <size>0.546875 0.6</size>
+         <alignment>left</alignment>
+      </textlist>
+   </view>
+
+   <view name="video">
+      <image name="md_marquee">
+         <origin>0 0</origin>
+         <pos>1 1</pos>
+      </image>
+      <image name="md_image">
+         <origin>0 0</origin>
+         <pos>1 1</pos>
+      </image>
+      <video name="md_video">
+         <origin>0 0</origin>
+         <pos>0.634765625 0</pos>
+         <zIndex>0</zIndex>
+         <maxSize>1 1</maxSize>
+         <showSnapshotNoVideo>false</showSnapshotNoVideo>
+      </video>
+   </view>
+
+</theme>
