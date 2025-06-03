@@ -9,13 +9,16 @@
 #include <filesystem>
 #include <fstream>
 #include <unordered_map>
+
 namespace fs = std::filesystem;
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
+const int MENU_FONT_SIZE = 48;
+const int LIST_FONT_SIZE = 32;
 const SDL_Color COLOR_BLUE = {0, 0, 255, 255};
+const SDL_Color COLOR_BLACK = {0, 0, 0, 255};
 const SDL_Color COLOR_WHITE = {255, 255, 255, 255};
-
 
 // Load config key-value pairs from a file
 std::unordered_map<std::string, std::string> loadConfig(const std::string& filename) {
@@ -37,6 +40,16 @@ std::unordered_map<std::string, std::string> loadConfig(const std::string& filen
     return config;
 }
 
+void playShuffledDirectory(const std::string& dir) {
+    std::string command = "mpv --fs --shuffle ";
+    for (const auto& entry : fs::directory_iterator(dir)) {
+        if (entry.is_regular_file()) {
+            command += "\"" + entry.path().string() + "\" ";
+        }
+    }
+    command += "&";
+    std::system(command.c_str());
+}
 
 struct MenuItem {
     std::string label;
@@ -48,12 +61,12 @@ struct Menu {
     std::vector<MenuItem> items;
     int selectedIndex = 0;
 
-    void render(SDL_Renderer* renderer, TTF_Font* font) {
+    virtual void render(SDL_Renderer* renderer, TTF_Font* menuFont, TTF_Font* listFont) {
         SDL_SetRenderDrawColor(renderer, COLOR_BLUE.r, COLOR_BLUE.g, COLOR_BLUE.b, COLOR_BLUE.a);
         SDL_RenderClear(renderer);
 
         // Render title
-        SDL_Surface* titleSurf = TTF_RenderText_Solid(font, title.c_str(), COLOR_WHITE);
+        SDL_Surface* titleSurf = TTF_RenderText_Solid(menuFont, title.c_str(), COLOR_WHITE);
         SDL_Texture* titleTex = SDL_CreateTextureFromSurface(renderer, titleSurf);
         int titleW = titleSurf->w;
         int titleH = titleSurf->h;
@@ -62,24 +75,37 @@ struct Menu {
         SDL_RenderCopy(renderer, titleTex, nullptr, &titleRect);
         SDL_DestroyTexture(titleTex);
 
-        // Render items
+        // Calculate max item width
+        int maxWidth = 0;
+        for (const auto& item : items) {
+            SDL_Surface* surf = TTF_RenderText_Solid(menuFont, item.label.c_str(), COLOR_WHITE);
+            if (surf) {
+                if (surf->w > maxWidth) maxWidth = surf->w;
+                SDL_FreeSurface(surf);
+            }
+        }
+
+        // Center the list using maxWidth
+        int listX = SCREEN_WIDTH / 2 - maxWidth / 2;
         int yOffset = 150;
-        int xOffset = 150;
+        int itemHeight = MENU_FONT_SIZE;
+
         for (size_t i = 0; i < items.size(); ++i) {
             SDL_Color fgColor = (i == selectedIndex) ? COLOR_BLUE : COLOR_WHITE;
             SDL_Color bgColor = (i == selectedIndex) ? COLOR_WHITE : COLOR_BLUE;
 
-            SDL_Surface* surf = TTF_RenderText_Solid(font, items[i].label.c_str(), fgColor);
+            SDL_Surface* surf = TTF_RenderText_Solid(menuFont, items[i].label.c_str(), fgColor);
             SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
             int textW = surf->w;
             int textH = surf->h;
             SDL_FreeSurface(surf);
 
-            SDL_Rect bgRect = {SCREEN_WIDTH / 2 - xOffset, yOffset + (int)i * 50, textW, textH};
+            SDL_Rect bgRect = {listX, yOffset + (int)i * itemHeight, textW, textH};
             SDL_SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
             SDL_RenderFillRect(renderer, &bgRect);
 
-            SDL_Rect textRect = {SCREEN_WIDTH / 2 - xOffset, yOffset + (int)i * 50, textW, textH};
+            // Align text left within the background
+            SDL_Rect textRect = {listX, yOffset + (int)i * itemHeight, textW, textH};
             SDL_RenderCopy(renderer, tex, nullptr, &textRect);
             SDL_DestroyTexture(tex);
         }
@@ -88,6 +114,8 @@ struct Menu {
 
 struct MediaMenu : public Menu {
     std::string directory;
+    int scrollOffset = 0;
+    const int visibleItems = 10;  // just the right amount
 
     MediaMenu(const std::string& title, const std::string& dirPath) {
         this->title = title;
@@ -102,43 +130,61 @@ struct MediaMenu : public Menu {
                 std::string filePath = entry.path().string();
                 std::string fileName = entry.path().filename().string();
 
-                // Capture full path by value in the lambda
+                // Launch MPV fullscreen when this item is selected
                 items.push_back({fileName, [filePath]() {
-                    std::string command = "xdg-open \"" + filePath + "\"";
+                    std::string command = "mpv --fs \"" + filePath + "\" &";
                     std::system(command.c_str());
                 }});
             }
         }
     }
 
-    void render(SDL_Renderer* renderer, TTF_Font* font) {
-        updateItems();  // Refresh the file list at each render
+    void updateScroll() {
+        if (selectedIndex < scrollOffset) {
+            scrollOffset = selectedIndex;
+        } else if (selectedIndex >= scrollOffset + visibleItems) {
+            scrollOffset = selectedIndex - visibleItems + 1;
+        }
+    }
 
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);  // Black background
+    void render(SDL_Renderer* renderer, TTF_Font* menuFont, TTF_Font* listFont) {
+        SDL_SetRenderDrawColor(renderer, COLOR_BLACK.r, COLOR_BLACK.g, COLOR_BLACK.b, COLOR_BLACK.a);
         SDL_RenderClear(renderer);
 
         // Render title
-        SDL_Surface* titleSurf = TTF_RenderText_Solid(font, title.c_str(), COLOR_WHITE);
+        SDL_Surface* titleSurf = TTF_RenderText_Solid(menuFont, title.c_str(), COLOR_WHITE);
         SDL_Texture* titleTex = SDL_CreateTextureFromSurface(renderer, titleSurf);
         int titleW = titleSurf->w;
         int titleH = titleSurf->h;
         SDL_FreeSurface(titleSurf);
-        SDL_Rect titleRect = {20, 30, titleW, titleH};
+        SDL_Rect titleRect = {SCREEN_WIDTH / 2 - titleW / 2, 70, titleW, titleH};
         SDL_RenderCopy(renderer, titleTex, nullptr, &titleRect);
         SDL_DestroyTexture(titleTex);
 
         // Render file list with smaller text
-        int yOffset = 80;
-        for (size_t i = 0; i < items.size(); ++i) {
-            SDL_Color color = (i == selectedIndex) ? COLOR_BLUE : COLOR_WHITE;
-            SDL_Surface* surf = TTF_RenderText_Solid(font, items[i].label.c_str(), color);
+        int maxWidth = SCREEN_WIDTH - 48;
+        int listX = SCREEN_WIDTH / 2 - maxWidth / 2;
+        int yOffset = 150;
+        int itemHeight = LIST_FONT_SIZE;
+        for (size_t i = scrollOffset; i < std::min(items.size(), static_cast<size_t>(scrollOffset + visibleItems)); ++i) {
+            int drawIndex = i - scrollOffset;
+
+            SDL_Color fgColor = (i == selectedIndex) ? COLOR_BLUE : COLOR_WHITE;
+            SDL_Color bgColor = (i == selectedIndex) ? COLOR_WHITE : COLOR_BLACK;
+
+            SDL_Surface* surf = TTF_RenderText_Solid(listFont, items[i].label.c_str(), fgColor);
             SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
             int textW = surf->w;
             int textH = surf->h;
             SDL_FreeSurface(surf);
 
-            SDL_Rect rect = {40, yOffset + static_cast<int>(i) * 30, textW, textH};
-            SDL_RenderCopy(renderer, tex, nullptr, &rect);
+            SDL_Rect bgRect = {listX, yOffset + drawIndex * itemHeight, maxWidth, textH};
+            SDL_SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+            SDL_RenderFillRect(renderer, &bgRect);
+
+            // Align text left within the background
+            SDL_Rect textRect = {listX, yOffset + drawIndex * itemHeight, textW, textH};
+            SDL_RenderCopy(renderer, tex, nullptr, &textRect);
             SDL_DestroyTexture(tex);
         }
     }
@@ -157,47 +203,66 @@ int main(int argc, char* argv[]) {
 
     SDL_Window* window = SDL_CreateWindow("Wave", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    TTF_Font* font = TTF_OpenFont("VCR_OSD_MONO_1.001.ttf", 48);
-    if (!font) {
+    TTF_Font* menuFont = TTF_OpenFont("VCR_OSD_MONO_1.001.ttf", MENU_FONT_SIZE);
+    if (!menuFont) {
+        std::cerr << "TTF_OpenFont Error: " << TTF_GetError() << std::endl;
+        return 1;
+    }
+
+    TTF_Font* listFont = TTF_OpenFont("VCR_OSD_MONO_1.001.ttf", LIST_FONT_SIZE);
+    if (!listFont) {
         std::cerr << "TTF_OpenFont Error: " << TTF_GetError() << std::endl;
         return 1;
     }
 
     SDL_GameController* controller = nullptr;
 
-    std::stack<Menu> menuStack;
+    std::stack<std::shared_ptr<Menu>> menuStack;
 
     auto config = loadConfig("config.txt");
 
     std::string mtvPath = config.count("MTV") ? config["MTV"] : "~/Pictures";
     std::string vhsPath = config.count("VHS") ? config["VHS"] : "~/Pictures";
 
-    MediaMenu mtvCollection("MTV", mtvPath);
-    MediaMenu vhsCollection("VHS", vhsPath);
+    auto mtvCollection = std::make_shared<MediaMenu>("MTV", mtvPath);
+    auto vhsCollection = std::make_shared<MediaMenu>("VHS", vhsPath);
 
-    Menu mtvMenu = {"MTV", {
-        {"SHUFFLE", []() { system("echo SHUFFLE selected"); }},
-        {"COLLECTION", [&]() { menuStack.push(mtvCollection); }}
-    }};
+    auto mtvMenu = std::make_shared<Menu>();
+    mtvMenu->title = "MTV";
+    mtvMenu->items = {
+        {"SHUFFLE", [&]() { playShuffledDirectory(mtvPath); }},
+        {"COLLECTION", [&]() {
+            mtvCollection->updateItems();
+            menuStack.push(mtvCollection);
+        }}
+    };
 
-    Menu vhsMenu = {"VHS", {
-        {"SHUFFLE", []() { system("echo SHUFFLE selected"); }},
-        {"COLLECTION", [&]() { menuStack.push(vhsCollection); }}
-    }};
+    auto vhsMenu = std::make_shared<Menu>();
+    vhsMenu->title = "VHS";
+    vhsMenu->items = {
+        {"SHUFFLE", [&]() { playShuffledDirectory(vhsPath); }},
+        {"COLLECTION", [&]() {
+            vhsCollection->updateItems();
+            menuStack.push(vhsCollection);
+        }}
+    };
 
-    Menu tvMenu = {"TV", {
+    auto tvMenu = std::make_shared<Menu>();
+    tvMenu->title = "TV";
+    tvMenu->items = {
         {"MTV", [&]() { menuStack.push(mtvMenu); }},
         {"VHS", [&]() { menuStack.push(vhsMenu); }},
         {"CABLE", []() { system("echo Cable selected"); }}
-    }};
+    };
 
-    Menu mainMenu = {"MENU", {
+    auto mainMenu = std::make_shared<Menu>();
+    mainMenu->title = "MENU";
+    mainMenu->items = {
         {"TV", [&]() { menuStack.push(tvMenu); }},
         {"VIDEOGAME", []() { system("echo VIDEOGAME selected"); }},
         {"RADIO", []() { system("echo RADIO selected"); }},
         {"CONFIGURATION", []() { system("echo CONFIG selected"); }}
-    }};
-
+    };
 
     menuStack.push(mainMenu);
 
@@ -222,13 +287,15 @@ int main(int argc, char* argv[]) {
                 case SDL_KEYDOWN:
                     switch (e.key.keysym.sym) {
                         case SDLK_UP:
-                            menuStack.top().selectedIndex = (menuStack.top().selectedIndex - 1 + menuStack.top().items.size()) % menuStack.top().items.size();
+                            menuStack.top()->selectedIndex = (menuStack.top()->selectedIndex - 1 + menuStack.top()->items.size()) % menuStack.top()->items.size();
+                            if (auto media = std::dynamic_pointer_cast<MediaMenu>(menuStack.top())) media->updateScroll();
                             break;
                         case SDLK_DOWN:
-                            menuStack.top().selectedIndex = (menuStack.top().selectedIndex + 1) % menuStack.top().items.size();
+                            menuStack.top()->selectedIndex = (menuStack.top()->selectedIndex + 1) % menuStack.top()->items.size();
+                            if (auto media = std::dynamic_pointer_cast<MediaMenu>(menuStack.top())) media->updateScroll();
                             break;
                         case SDLK_RETURN:
-                            menuStack.top().items[menuStack.top().selectedIndex].action();
+                            menuStack.top()->items[menuStack.top()->selectedIndex].action();
                             break;
                         case SDLK_BACKSPACE:
                             if (menuStack.size() > 1) menuStack.pop();
@@ -237,11 +304,13 @@ int main(int argc, char* argv[]) {
                     break;
                 case SDL_CONTROLLERBUTTONDOWN:
                     if (e.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP) {
-                        menuStack.top().selectedIndex = (menuStack.top().selectedIndex - 1 + menuStack.top().items.size()) % menuStack.top().items.size();
+                        menuStack.top()->selectedIndex = (menuStack.top()->selectedIndex - 1 + menuStack.top()->items.size()) % menuStack.top()->items.size();
+                        if (auto media = std::dynamic_pointer_cast<MediaMenu>(menuStack.top())) media->updateScroll();
                     } else if (e.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN) {
-                        menuStack.top().selectedIndex = (menuStack.top().selectedIndex + 1) % menuStack.top().items.size();
+                        menuStack.top()->selectedIndex = (menuStack.top()->selectedIndex + 1) % menuStack.top()->items.size();
+                        if (auto media = std::dynamic_pointer_cast<MediaMenu>(menuStack.top())) media->updateScroll();
                     } else if (e.cbutton.button == SDL_CONTROLLER_BUTTON_A) {
-                        menuStack.top().items[menuStack.top().selectedIndex].action();
+                        menuStack.top()->items[menuStack.top()->selectedIndex].action();
                     } else if (e.cbutton.button == SDL_CONTROLLER_BUTTON_B) {
                         if (menuStack.size() > 1) menuStack.pop();
                     }
@@ -249,13 +318,14 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        menuStack.top().render(renderer, font);
+        menuStack.top()->render(renderer, menuFont, listFont);
         SDL_RenderPresent(renderer);
         SDL_Delay(16);
     }
 
     if (controller) SDL_GameControllerClose(controller);
-    TTF_CloseFont(font);
+    TTF_CloseFont(menuFont);
+    TTF_CloseFont(listFont);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     TTF_Quit();
