@@ -260,7 +260,7 @@ int main(int argc, char* argv[]) {
     mainMenu->items = {
         {"TV", [&]() { menuStack.push(tvMenu); }},
         {"VIDEOGAME", []() { system("echo VIDEOGAME selected"); }},
-        {"RADIO", []() { system("echo RADIO selected"); }},
+        {"RADIO", []() { system("xterm -e bash spt.sh"); }},
         {"CONFIGURATION", []() { system("echo CONFIG selected"); }}
     };
 
