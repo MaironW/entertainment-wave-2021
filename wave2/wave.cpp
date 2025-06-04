@@ -115,7 +115,8 @@ struct Menu {
 struct MediaMenu : public Menu {
     std::string directory;
     int scrollOffset = 0;
-    const int visibleItems = 10;  // just the right amount
+    int visibleItems = 10;
+
 
     MediaMenu(const std::string& title, const std::string& dirPath) {
         this->title = title;
@@ -125,14 +126,22 @@ struct MediaMenu : public Menu {
 
     void updateItems() {
         items.clear();
-        for (const auto& entry : fs::directory_iterator(directory)) {
-            if (entry.is_regular_file()) {
-                std::string filePath = entry.path().string();
-                std::string fileName = entry.path().filename().string();
 
-                // Launch MPV fullscreen when this item is selected
-                items.push_back({fileName, [filePath]() {
-                    std::string command = "mpv --fs \"" + filePath + "\" &";
+        // Folder view
+        for (auto& entry : fs::directory_iterator(directory)) {
+            std::string path = entry.path().string();
+            std::string name = entry.path().filename().string();
+
+            if (entry.is_directory()) {
+                items.push_back({name + "/", [this, path]() {
+                    this->directory = path;
+                    this->updateItems();
+                    this->selectedIndex = 0;
+                    this->scrollOffset = 0;
+                }});
+            } else if (entry.is_regular_file()) {
+                items.push_back({name, [path]() {
+                    std::string command = "mpv --fs \"" + path + "\" &";
                     std::system(command.c_str());
                 }});
             }
@@ -161,14 +170,14 @@ struct MediaMenu : public Menu {
         SDL_RenderCopy(renderer, titleTex, nullptr, &titleRect);
         SDL_DestroyTexture(titleTex);
 
-        // Render file list with smaller text
+        // Render file list
         int maxWidth = SCREEN_WIDTH - 48;
         int listX = SCREEN_WIDTH / 2 - maxWidth / 2;
         int yOffset = 150;
         int itemHeight = LIST_FONT_SIZE;
+
         for (size_t i = scrollOffset; i < std::min(items.size(), static_cast<size_t>(scrollOffset + visibleItems)); ++i) {
             int drawIndex = i - scrollOffset;
-
             SDL_Color fgColor = (i == selectedIndex) ? COLOR_BLUE : COLOR_WHITE;
             SDL_Color bgColor = (i == selectedIndex) ? COLOR_WHITE : COLOR_BLACK;
 
@@ -182,7 +191,6 @@ struct MediaMenu : public Menu {
             SDL_SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
             SDL_RenderFillRect(renderer, &bgRect);
 
-            // Align text left within the background
             SDL_Rect textRect = {listX, yOffset + drawIndex * itemHeight, textW, textH};
             SDL_RenderCopy(renderer, tex, nullptr, &textRect);
             SDL_DestroyTexture(tex);
@@ -303,16 +311,21 @@ int main(int argc, char* argv[]) {
                     }
                     break;
                 case SDL_CONTROLLERBUTTONDOWN:
-                    if (e.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP) {
-                        menuStack.top()->selectedIndex = (menuStack.top()->selectedIndex - 1 + menuStack.top()->items.size()) % menuStack.top()->items.size();
-                        if (auto media = std::dynamic_pointer_cast<MediaMenu>(menuStack.top())) media->updateScroll();
-                    } else if (e.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN) {
-                        menuStack.top()->selectedIndex = (menuStack.top()->selectedIndex + 1) % menuStack.top()->items.size();
-                        if (auto media = std::dynamic_pointer_cast<MediaMenu>(menuStack.top())) media->updateScroll();
-                    } else if (e.cbutton.button == SDL_CONTROLLER_BUTTON_A) {
-                        menuStack.top()->items[menuStack.top()->selectedIndex].action();
-                    } else if (e.cbutton.button == SDL_CONTROLLER_BUTTON_B) {
-                        if (menuStack.size() > 1) menuStack.pop();
+                    switch(e.cbutton.button) {
+                        case SDL_CONTROLLER_BUTTON_DPAD_UP:
+                            menuStack.top()->selectedIndex = (menuStack.top()->selectedIndex - 1 + menuStack.top()->items.size()) % menuStack.top()->items.size();
+                            if (auto media = std::dynamic_pointer_cast<MediaMenu>(menuStack.top())) media->updateScroll();
+                            break;
+                        case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+                            menuStack.top()->selectedIndex = (menuStack.top()->selectedIndex + 1) % menuStack.top()->items.size();
+                            if (auto media = std::dynamic_pointer_cast<MediaMenu>(menuStack.top())) media->updateScroll();
+                            break;
+                        case SDL_CONTROLLER_BUTTON_A:
+                            menuStack.top()->items[menuStack.top()->selectedIndex].action();
+                            break;
+                        case SDL_CONTROLLER_BUTTON_B:
+                            if (menuStack.size() > 1) menuStack.pop();
+                            break;
                     }
                     break;
             }
