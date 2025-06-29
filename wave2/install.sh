@@ -77,34 +77,20 @@ else
 fi
 
 
-# Setup USB automount under /media/pi
-echo "Setting up USB automount under /media/pi..."
+# Set up static mount of /dev/sda1 to /media/usb_drive
+echo "Setting up static USB mount for /dev/sda1..."
 
-# Create mount base directory
-sudo mkdir -p /media/pi
-sudo chown pi:pi /media/pi
+sudo mkdir -p /media/usb_drive
+sudo chown pi:pi /media/usb_drive
 
-# Create automount script
-sudo tee /usr/local/bin/usb-automount.sh > /dev/null << 'EOF'
-#!/bin/bash
+UUID=$(sudo blkid -s UUID -o value /dev/sda1)
+FSTYPE=$(sudo blkid -s TYPE -o value /dev/sda1)
 
-DEVNAME="$1"
-LABEL=$(blkid -s LABEL -o value /dev/"$DEVNAME")
-MOUNTPOINT="/media/pi/${LABEL:-$DEVNAME}"
-
-mkdir -p "$MOUNTPOINT"
-mount -o uid=pi,gid=pi /dev/"$DEVNAME" "$MOUNTPOINT"
-EOF
-
-sudo chmod +x /usr/local/bin/usb-automount.sh
-
-# Create udev rule to trigger script
-sudo tee /etc/udev/rules.d/99-usb-mount.rules > /dev/null << 'EOF'
-KERNEL=="sd[a-z][0-9]", ACTION=="add", ENV{ID_FS_TYPE}!="", RUN+="/usr/local/bin/usb-automount.sh %k"
-EOF
-
-# Reload udev
-sudo udevadm control --reload-rules
-sudo udevadm trigger
+if ! grep -q "$UUID" /etc/fstab; then
+  echo "Adding USB mount to /etc/fstab..."
+  echo "UUID=$UUID /media/usb_drive $FSTYPE defaults,uid=pi,gid=pi,umask=022 0 0" | sudo tee -a /etc/fstab
+else
+  echo "USB mount already exists in /etc/fstab."
+fi
 
 echo "Installation complete. Please reboot to apply all changes."
