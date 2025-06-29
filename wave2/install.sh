@@ -4,7 +4,7 @@ echo "Starting installer..."
 
 # Copy boot script
 echo "Copying boot script to home directory..."
-cp utils/bootrun.sh ~/
+cp ../utils/bootrun.sh ~/
 chmod +x ~/bootrun.sh
 
 # Update ~/.profile to run boot script
