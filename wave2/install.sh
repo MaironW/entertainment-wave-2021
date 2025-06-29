@@ -76,4 +76,26 @@ else
   echo "Ctrl+Alt+T shortcut already exists in rc.xml."
 fi
 
-echo "Installation complete. Please reboot the system to apply all changes."
+
+# Setup USB automount
+echo "Setting up USB automount..."
+
+sudo tee /usr/local/bin/usb-automount.sh > /dev/null << 'EOF'
+#!/bin/bash
+MOUNT_BASE="/mnt/usb"
+DEV_NAME=$(basename "$1")
+MOUNT_POINT="${MOUNT_BASE}_${DEV_NAME}"
+mkdir -p "$MOUNT_POINT"
+mount -o uid=pi,gid=pi /dev/"$DEV_NAME" "$MOUNT_POINT"
+EOF
+
+sudo chmod +x /usr/local/bin/usb-automount.sh
+
+sudo tee /etc/udev/rules.d/99-usb-mount.rules > /dev/null << 'EOF'
+KERNEL=="sd[a-z][0-9]", ACTION=="add", RUN+="/usr/local/bin/usb-automount.sh %k"
+EOF
+
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+echo "Installation complete. Please reboot to apply all changes."
