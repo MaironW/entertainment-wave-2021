@@ -81,16 +81,7 @@ fi
 echo "Setting up static USB mount for /dev/sda1..."
 
 sudo mkdir -p /media/usb_drive
-sudo chown pi:pi /media/usb_drive
-
-UUID=$(sudo blkid -s UUID -o value /dev/sda1)
-FSTYPE=$(sudo blkid -s TYPE -o value /dev/sda1)
-
-if ! grep -q "$UUID" /etc/fstab; then
-  echo "Adding USB mount to /etc/fstab..."
-  echo "UUID=$UUID /media/usb_drive $FSTYPE defaults,uid=pi,gid=pi,umask=022 0 0" | sudo tee -a /etc/fstab
-else
-  echo "USB mount already exists in /etc/fstab."
-fi
+sudo mount /dev/sda1 /media/usb_drive
+systemctl daemon-reload
 
 echo "Installation complete. Please reboot to apply all changes."
