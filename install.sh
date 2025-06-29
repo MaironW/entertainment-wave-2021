@@ -27,21 +27,18 @@ fi
 echo "Enabling autologin..."
 sudo raspi-config nonint do_boot_behaviour B2
 
-# Copy xrandr configuration to home directory
-cp /utils/set_xrandr_crt ~/set_xrandr
-chmod +x ~/set_xrandr
-
 # Set up Openbox autostart
 OPENBOX_AUTOSTART="$HOME/.config/openbox/autostart"
 mkdir -p "$(dirname "$OPENBOX_AUTOSTART")"
 cat << 'EOF' > "$OPENBOX_AUTOSTART"
-# Set screen resolution for CRT TV
-./home/pi/set_xrandr
+# Detect HDMI or RCA and configure screen
+./home/pi/entertainment-wave-2021/utils/set_video_out.sh
 
 # Run wave in kiosk mode
 cd ~/entertainment-wave-2021/src/
 ./wave
 EOF
+chmod +x /home/pi/entertainment-wave-2021/utils/set_video_out.sh
 
 # Install XTerm
 echo "Installing xterm..."
