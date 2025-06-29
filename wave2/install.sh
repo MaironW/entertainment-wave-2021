@@ -77,24 +77,33 @@ else
 fi
 
 
-# Setup USB automount
-echo "Setting up USB automount..."
+# Setup USB automount under /media/pi
+echo "Setting up USB automount under /media/pi..."
 
+# Create mount base directory
+sudo mkdir -p /media/pi
+sudo chown pi:pi /media/pi
+
+# Create automount script
 sudo tee /usr/local/bin/usb-automount.sh > /dev/null << 'EOF'
 #!/bin/bash
-MOUNT_BASE="/mnt/usb"
-DEV_NAME=$(basename "$1")
-MOUNT_POINT="${MOUNT_BASE}_${DEV_NAME}"
-mkdir -p "$MOUNT_POINT"
-mount -o uid=pi,gid=pi /dev/"$DEV_NAME" "$MOUNT_POINT"
+
+DEVNAME="$1"
+LABEL=$(blkid -s LABEL -o value /dev/"$DEVNAME")
+MOUNTPOINT="/media/pi/${LABEL:-$DEVNAME}"
+
+mkdir -p "$MOUNTPOINT"
+mount -o uid=pi,gid=pi /dev/"$DEVNAME" "$MOUNTPOINT"
 EOF
 
 sudo chmod +x /usr/local/bin/usb-automount.sh
 
+# Create udev rule to trigger script
 sudo tee /etc/udev/rules.d/99-usb-mount.rules > /dev/null << 'EOF'
-KERNEL=="sd[a-z][0-9]", ACTION=="add", RUN+="/usr/local/bin/usb-automount.sh %k"
+KERNEL=="sd[a-z][0-9]", ACTION=="add", ENV{ID_FS_TYPE}!="", RUN+="/usr/local/bin/usb-automount.sh %k"
 EOF
 
+# Reload udev
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 
