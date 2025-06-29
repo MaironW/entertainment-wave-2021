@@ -1,2 +1,0 @@
-MTV=/home/
-VHS=/home/

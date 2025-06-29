@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>playlist/vhs.json</file>
-        <file>playlist/mtv.json</file>
-    </qresource>
-</RCC>

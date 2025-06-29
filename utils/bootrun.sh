@@ -10,7 +10,7 @@ exit_to='emulationstation'
 case $exit_to in
 	"emulationstation")
 		#emulationstation --resolution 1440 1080 --screenoffset 560 0;
-		python3 ~/vmodes_watcher.py &
+		#python3 ~/vmodes_watcher.py &
 		emulationstation --resolution 640 440 --screenoffset 40 -20
 		;;
 	"pios")
