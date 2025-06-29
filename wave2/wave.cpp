@@ -118,26 +118,55 @@ struct MediaMenu : public Menu {
     int visibleItems = 10;
 
 
-    MediaMenu(const std::string& title, const std::string& dirPath) {
+    MediaMenu(const std::string& title, const std::string& dirPath, std::stack<std::shared_ptr<Menu>>& menuStack) {
         this->title = title;
         directory = dirPath;
-        updateItems();
+        updateItems(menuStack);
     }
 
-    void updateItems() {
+    void updateItems(std::stack<std::shared_ptr<Menu>>& menuStack) {
         items.clear();
 
-        // Folder view
-        for (auto& entry : fs::directory_iterator(directory)) {
+        // Temporary vector to store directory entries
+        std::vector<fs::directory_entry> entries;
+
+        // Populate the vector with directory entries
+        for (const auto& entry : fs::directory_iterator(directory)) {
+            entries.push_back(entry);
+        }
+
+        // Sort the entries: directories first, then files, both in alphabetical order
+        std::sort(entries.begin(), entries.end(), [](const fs::directory_entry& a, const fs::directory_entry& b) {
+            bool isDirA = a.is_directory();
+            bool isDirB = b.is_directory();
+
+            if (isDirA != isDirB) {
+                // Directories come first
+                return isDirA > isDirB;
+            }
+
+            // Sort alphabetically within the same type
+            return a.path().filename().string() < b.path().filename().string();
+        });
+
+        // Populate the items vector with sorted entries
+        for (const auto& entry : entries) {
             std::string path = entry.path().string();
             std::string name = entry.path().filename().string();
 
             if (entry.is_directory()) {
-                items.push_back({name + "/", [this, path]() {
-                    this->directory = path;
-                    this->updateItems();
-                    this->selectedIndex = 0;
-                    this->scrollOffset = 0;
+                items.push_back({name + "/", [this, path, &menuStack]() {
+                    if (!fs::exists(path)) {
+                        std::cerr << "Error: Directory does not exist: " << path << std::endl;
+                        return;
+                    }
+
+                    // Push a new MediaMenu instance onto the menu stack
+                    auto newMenu = std::make_shared<MediaMenu>(this->title, path, menuStack);
+                    newMenu->selectedIndex = 0;
+                    newMenu->scrollOffset = 0;
+
+                    menuStack.push(newMenu);
                 }});
             } else if (entry.is_regular_file()) {
                 items.push_back({name, [path]() {
@@ -232,15 +261,15 @@ int main(int argc, char* argv[]) {
     std::string mtvPath = config.count("MTV") ? config["MTV"] : "~/Pictures";
     std::string vhsPath = config.count("VHS") ? config["VHS"] : "~/Pictures";
 
-    auto mtvCollection = std::make_shared<MediaMenu>("MTV", mtvPath);
-    auto vhsCollection = std::make_shared<MediaMenu>("VHS", vhsPath);
+    auto mtvCollection = std::make_shared<MediaMenu>("MTV", mtvPath, menuStack);
+    auto vhsCollection = std::make_shared<MediaMenu>("VHS", vhsPath, menuStack);
 
     auto mtvMenu = std::make_shared<Menu>();
     mtvMenu->title = "MTV";
     mtvMenu->items = {
         {"SHUFFLE", [&]() { playShuffledDirectory(mtvPath); }},
         {"COLLECTION", [&]() {
-            mtvCollection->updateItems();
+            mtvCollection->updateItems(menuStack);
             menuStack.push(mtvCollection);
         }}
     };
@@ -250,7 +279,7 @@ int main(int argc, char* argv[]) {
     vhsMenu->items = {
         {"SHUFFLE", [&]() { playShuffledDirectory(vhsPath); }},
         {"COLLECTION", [&]() {
-            vhsCollection->updateItems();
+            vhsCollection->updateItems(menuStack);
             menuStack.push(vhsCollection);
         }}
     };
