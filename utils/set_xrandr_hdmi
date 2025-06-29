@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+xrandr --output HDMI-1 --auto --output Composite-1 --off

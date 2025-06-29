@@ -4,7 +4,7 @@ echo "Starting installer..."
 
 # Copy boot script
 echo "Copying boot script to home directory..."
-cp ../utils/bootrun.sh ~/
+cp utils/bootrun.sh ~/
 chmod +x ~/bootrun.sh
 
 # Update ~/.profile to run boot script
@@ -27,6 +27,10 @@ fi
 echo "Enabling autologin..."
 sudo raspi-config nonint do_boot_behaviour B2
 
+# Copy xrandr configuration to home directory
+cp /utils/set_xrandr_crt ~/set_xrandr
+chmod +x ~/set_xrandr
+
 # Set up Openbox autostart
 OPENBOX_AUTOSTART="$HOME/.config/openbox/autostart"
 mkdir -p "$(dirname "$OPENBOX_AUTOSTART")"
@@ -35,10 +39,9 @@ cat << 'EOF' > "$OPENBOX_AUTOSTART"
 ./home/pi/set_xrandr
 
 # Run wave in kiosk mode
-cd ~/entertainment-wave-2021/wave2/
+cd ~/entertainment-wave-2021/src/
 ./wave
 EOF
-chmod +x ~/set_xrandr
 
 # Install XTerm
 echo "Installing xterm..."
@@ -76,12 +79,32 @@ else
   echo "Ctrl+Alt+T shortcut already exists in rc.xml."
 fi
 
-
 # Set up static mount of /dev/sda1 to /media/usb_drive
 echo "Setting up static USB mount for /dev/sda1..."
 
 sudo mkdir -p /media/usb_drive
 sudo mount /dev/sda1 /media/usb_drive
 systemctl daemon-reload
+
+# Copy Picade-M theme to EmulationStation
+echo "Installing Picade-M theme into EmulationStation..."
+
+if [ -d "utils/to_emulationstation/picade-m" ]; then
+    sudo mkdir -p /etc/emulationstation/themes
+    sudo cp -r utils/to_emulationstation/picade-m /etc/emulationstation/themes/
+    echo "Picade-M theme installed."
+else
+    echo "Error: picade-m theme folder not found in utils/to_emulationstation/"
+fi
+
+# Make
+echo "Building project with make..."
+
+if [ -f "./src/Makefile" ]; then
+    make -C ./src
+else
+    echo "Error: Makefile not found in ./src"
+    exit 1
+fi
 
 echo "Installation complete. Please reboot to apply all changes."
