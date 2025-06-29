@@ -94,6 +94,33 @@ else
     echo "Error: picade-m theme folder not found in utils/to_emulationstation/"
 fi
 
+# MPV settings
+echo "Configuring MPV for gamepad input..."
+
+# Ensure ~/.config/mpv exists
+mkdir -p /home/pi/.config/mpv
+
+# Add 'input-gamepad=yes' to mpv.conf if not already present
+MPV_CONF="/home/pi/.config/mpv/mpv.conf"
+if [ ! -f "$MPV_CONF" ]; then
+    echo "input-gamepad=yes" > "$MPV_CONF"
+    echo "Created mpv.conf with gamepad support."
+elif ! grep -q "^input-gamepad=yes" "$MPV_CONF"; then
+    echo "input-gamepad=yes" >> "$MPV_CONF"
+    echo "Appended gamepad support to existing mpv.conf."
+else
+    echo "Gamepad support already enabled in mpv.conf."
+fi
+
+# Copy input.conf
+if [ -f "./utils/to_mpv/input.conf" ]; then
+    cp ./utils/to_mpv/input.conf /home/pi/.config/mpv/input.conf
+    echo "Copied input.conf to MPV config."
+else
+    echo "Error: ./utils/to_mpv/input.conf not found."
+fi
+
+
 # Make
 echo "Building project with make..."
 
