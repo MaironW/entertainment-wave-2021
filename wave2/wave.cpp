@@ -238,7 +238,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    SDL_Window* window = SDL_CreateWindow("Wave", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    SDL_Window* window = SDL_CreateWindow("Wave", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     TTF_Font* menuFont = TTF_OpenFont("VCR_OSD_MONO_1.001.ttf", MENU_FONT_SIZE);
     if (!menuFont) {
@@ -258,8 +258,8 @@ int main(int argc, char* argv[]) {
 
     auto config = loadConfig("config.txt");
 
-    std::string mtvPath = config.count("MTV") ? config["MTV"] : "~/Pictures";
-    std::string vhsPath = config.count("VHS") ? config["VHS"] : "~/Pictures";
+    std::string mtvPath = config.count("MTV") ? config["MTV"] : "~/Videos";
+    std::string vhsPath = config.count("VHS") ? config["VHS"] : "~/Videos";
 
     auto mtvCollection = std::make_shared<MediaMenu>("MTV", mtvPath, menuStack);
     auto vhsCollection = std::make_shared<MediaMenu>("VHS", vhsPath, menuStack);
@@ -296,7 +296,7 @@ int main(int argc, char* argv[]) {
     mainMenu->title = "MENU";
     mainMenu->items = {
         {"TV", [&]() { menuStack.push(tvMenu); }},
-        {"VIDEOGAME", []() { system("echo VIDEOGAME selected"); }},
+        {"VIDEOGAME", []() { system("openbox --exit"); }},
         {"RADIO", []() { system("xterm -e bash spt.sh"); }},
         {"CONFIGURATION", []() { system("echo CONFIG selected"); }}
     };
