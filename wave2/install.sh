@@ -4,7 +4,7 @@ echo "Starting installer..."
 
 # Copy boot script
 echo "Copying boot script to home directory..."
-cp ../utils/bootrun.sh ~/
+cp utils/bootrun.sh ~/
 chmod +x ~/bootrun.sh
 
 # Update ~/.profile to run boot script
@@ -54,9 +54,16 @@ xterm*faceSize: 11
 xterm*internalBorder: 58
 EOF
 
-# Add keybind to rc.xml
+# Copy rc.xml if missing
 RC_XML="$HOME/.config/openbox/rc.xml"
-if [ -f "$RC_XML" ]; then
+if [ ! -f "$RC_XML" ]; then
+  echo "rc.xml not found in user directory. Copying default from /etc/xdg/openbox/rc.xml..."
+  mkdir -p "$(dirname "$RC_XML")"
+  cp /etc/xdg/openbox/rc.xml "$RC_XML"
+fi
+
+# Add keybind to rc.xml
+if ! grep -q 'key="C-A-t"' "$RC_XML"; then
   echo "Modifying $RC_XML to add Ctrl+Alt+T shortcut..."
   sed -i '/<keyboard>/a\
 <!-- Launch Terminal -->\
@@ -66,7 +73,7 @@ if [ -f "$RC_XML" ]; then
   </action>\
 </keybind>' "$RC_XML"
 else
-  echo "$RC_XML not found. Please create or populate it with Openbox default content before rerunning."
+  echo "Ctrl+Alt+T shortcut already exists in rc.xml."
 fi
 
 echo "Installation complete. Please reboot the system to apply all changes."

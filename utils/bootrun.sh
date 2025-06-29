@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Mount USB Stick
-sudo mount /dev/sda1 /media/usb_device
-
 # Run Wave (Openbox)
 sudo update-alternatives --set x-session-manager /usr/bin/openbox-session;
 startx -- -nocursor;
