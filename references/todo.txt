@@ -14,11 +14,11 @@ ok Random option (Shuffle)
 ok Refactor scripts
 ok Control the application with joystick
 ok Write a configuration file
+ok Create a list menu for MTV and VHS
+ok Create the autostart to the application on the RPi using openbox
    Run My80'sTV 
    Start Emulators
-   Create a list menu for MTV and VHS
    Create a json file with video data
-   Create the autostart to the application on the RPi using openbox
    Use sound on entering a video
    Create a layer that covers the screen till the videos start playing
    Create a date/clock display

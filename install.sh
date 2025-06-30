@@ -40,6 +40,11 @@ cd ~/entertainment-wave-2021/src/
 EOF
 chmod +x /home/pi/entertainment-wave-2021/utils/set_video_out.sh
 
+# Install antimicrox
+echo "Installing antimicrox..."
+sudo apt-get update
+sudo apt-get install -y antimicrox
+
 # Install XTerm
 echo "Installing xterm..."
 sudo apt-get update
