@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to your antimicrox profile
-PROFILE="$HOME/.config/antimicrox/spt_keymap.gamepad.amgp"
+PROFILE="spt_keymap.gamecontroller.amgp"
 
 # Launch antimicrox in the background with the profile
 antimicrox --profile "$PROFILE" --hidden &

@@ -297,7 +297,7 @@ int main(int argc, char* argv[]) {
     settingsMenu->items = {
         {"SHUTDOWN", []() { system("sudo shutdown now"); }},
         {"REBOOT", []() { system("sudo reboot now"); }},
-        {"UPDATE", []() { system("xterm -e bash ../utils/update.sh"); }}
+        {"UPDATE", []() { system("xterm -e bash update.sh"); }}
     };
 
     auto mainMenu = std::make_shared<Menu>();
