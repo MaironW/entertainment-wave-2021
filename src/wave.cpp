@@ -292,13 +292,21 @@ int main(int argc, char* argv[]) {
         {"CABLE", []() { system("echo Cable selected"); }}
     };
 
+    auto settingsMenu = std::make_shared<Menu>();
+    settingsMenu->title = "SETTINGS";
+    settingsMenu->items = {
+        {"SHUTDOWN", []() { system("sudo shutdown now"); }},
+        {"REBOOT", []() { system("sudo reboot now"); }},
+        {"UPDATE", []() { system("bash ../utils/update.sh"); }}
+    };
+
     auto mainMenu = std::make_shared<Menu>();
     mainMenu->title = "MENU";
     mainMenu->items = {
         {"TV", [&]() { menuStack.push(tvMenu); }},
         {"VIDEOGAME", []() { system("openbox --exit"); }},
         {"RADIO", []() { system("xterm -e bash spt.sh"); }},
-        {"CONFIGURATION", []() { system("echo CONFIG selected"); }}
+        {"SETTINGS", [&]() { menuStack.push(settingsMenu); }}
     };
 
     menuStack.push(mainMenu);
