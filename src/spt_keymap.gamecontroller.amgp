@@ -27,10 +27,10 @@
                         </slot>
                     </slots>
                 </dpadbutton>
-                <dpadbutton index="2">
+                <dpadbutton index="8">
                     <slots>
                         <slot>
-                            <code>0x1000014</code>
+                            <code>0x1000012</code>
                             <mode>keyboard</mode>
                         </slot>
                     </slots>
@@ -43,30 +43,15 @@
                         </slot>
                     </slots>
                 </dpadbutton>
-                <dpadbutton index="8">
+                <dpadbutton index="2">
                     <slots>
                         <slot>
-                            <code>0x1000012</code>
+                            <code>0x1000014</code>
                             <mode>keyboard</mode>
                         </slot>
                     </slots>
                 </dpadbutton>
             </dpad>
-            <trigger index="6">
-                <deadZone>2000</deadZone>
-                <center_value>0</center_value>
-                <min_value>-32767</min_value>
-                <max_value>32767</max_value>
-                <throttle>positivehalf</throttle>
-                <triggerbutton index="2">
-                    <slots>
-                        <slot>
-                            <code>0x4e</code>
-                            <mode>keyboard</mode>
-                        </slot>
-                    </slots>
-                </triggerbutton>
-            </trigger>
             <trigger index="5">
                 <deadZone>2000</deadZone>
                 <center_value>0</center_value>
@@ -82,6 +67,29 @@
                     </slots>
                 </triggerbutton>
             </trigger>
+            <trigger index="6">
+                <deadZone>2000</deadZone>
+                <center_value>0</center_value>
+                <min_value>-32767</min_value>
+                <max_value>32767</max_value>
+                <throttle>positivehalf</throttle>
+                <triggerbutton index="2">
+                    <slots>
+                        <slot>
+                            <code>0x4e</code>
+                            <mode>keyboard</mode>
+                        </slot>
+                    </slots>
+                </triggerbutton>
+            </trigger>
+            <button index="10">
+                <slots>
+                    <slot>
+                        <code>0x1000072</code>
+                        <mode>keyboard</mode>
+                    </slot>
+                </slots>
+            </button>
             <button index="11">
                 <slots>
                     <slot>
@@ -90,10 +98,18 @@
                     </slot>
                 </slots>
             </button>
-            <button index="10">
+            <button index="2">
                 <slots>
                     <slot>
-                        <code>0x1000072</code>
+                        <code>0x1000000</code>
+                        <mode>keyboard</mode>
+                    </slot>
+                </slots>
+            </button>
+            <button index="1">
+                <slots>
+                    <slot>
+                        <code>0x1000004</code>
                         <mode>keyboard</mode>
                     </slot>
                 </slots>
@@ -114,18 +130,26 @@
                     </slot>
                 </slots>
             </button>
-            <button index="2">
+            <button index="6">
                 <slots>
                     <slot>
-                        <code>0x1000000</code>
+                        <code>0x1000021</code>
+                        <mode>keyboard</mode>
+                    </slot>
+                    <slot>
+                        <code>0x53</code>
                         <mode>keyboard</mode>
                     </slot>
                 </slots>
             </button>
-            <button index="1">
+            <button index="5">
                 <slots>
                     <slot>
-                        <code>0x1000004</code>
+                        <code>0x1000021</code>
+                        <mode>keyboard</mode>
+                    </slot>
+                    <slot>
+                        <code>0x43</code>
                         <mode>keyboard</mode>
                     </slot>
                 </slots>
