@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Prevent running bootrun.sh through SSH
+if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_CLIENT" ]; then
+	echo "SSH mode."
+	exit 0
+fi
+
 # Run Wave (Openbox)
 sudo update-alternatives --set x-session-manager /usr/bin/openbox-session;
 startx -- -nocursor;
