@@ -125,7 +125,6 @@ else
     echo "Error: ./utils/to_mpv/input.conf not found."
 fi
 
-
 # Make
 echo "Building project with make..."
 

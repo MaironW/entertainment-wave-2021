@@ -39,7 +39,7 @@ Please, follow the installation steps on the repositories for [Spotify-tui](http
 
 ## Configure the CRT resolution
 
-Up to this point, you might still be operating your Raspi through HDMI. However, you need to change configurations so it outputs video through RCA. This is done manually before the initial setup, as it is optional (some users might want to keep using it on a HDMI screen). The following might work, initially:
+Up to this point, you might still be operating your Raspi through HDMI. However, you need to change configurations so it outputs video through RCA. This is done manually after the initial setup, as it is optional (some users might want to keep using it on a HDMI screen). The following might work, initially:
 
 ```
 sudo cp utils/config_default.txt /boot/firmware/config_default.txt
@@ -60,9 +60,15 @@ This will make sure that only the games will run on 240p, while other applicatio
 
 ### Wave Menu
 
+Keyboard:
 - Directional keys `up` and `down`: navigate through menu
 - `Enter`: select option
 - `Backspace`: return to last menu screen
+
+Gamepad:
+- Directional keys `up` and `down`: navigate through menu
+- `A`: select option
+- `B`: return to last menu screen
 
 ### Cable
 
@@ -83,6 +89,19 @@ When playing videos though the MTV/VHS menu, they run on mpv. So the [mpv docume
 - `W` and `E`: adjust Overscan
 - `Space`: Play/Pause button
 
+The file `utils/to_mpv/input.conf` contains assignments to control the application with a Gamepad. By default, I keep it as follows:
+
+- `Up`/`Down`: Volume
+- `Left`/`Right`: Seek 10 seconds
+- `A`/`Start`: Cycle Play/Pause
+- `Y`: Mute
+- `X`/`B`: Change brightness
+- `L1`/`R1`: Change overscan
+- `L2`/`R2`: Previous/Next video
+- `Select`: Close video
+
+This works fine on a 8bitdo M30, which is the main controller I use for this setup. Feel free to edit the file on `~/.config/mpv/input.conf` as you prefer.
+
 ### Emulationstation
 
 On Emulationstation you can operate with your keyboard and also your gamepad controller. You can refer to the RetroPie documentation to understand how to configure your inputs.
@@ -92,3 +111,9 @@ When selecting Exit Emulationstation, you will go back to the Wave menu.
 ### Radio
 
 You can follow the Spotify-tui documentation for how to operate the application. Because it is running on a XTerm instance, pressing `Ctrl+C` will let you exit.
+
+For gamepad control, I assigned the inputs using antimicrox so that:
+
+- `D-Pad`: Arrows
+- `A`/`Start`: Space/Enter
+- `Select`: Close
