@@ -227,6 +227,11 @@ struct MediaMenu : public Menu {
     }
 };
 
+void playGif(const std::string& path, float seconds) {
+    std::string cmd = "mpv --fs --no-audio --loop-file=10 --end=" + std::to_string(seconds) + " \"" + path + "\"";
+    system(cmd.c_str());
+}
+
 int main(int argc, char* argv[]) {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) != 0) {
         std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
@@ -287,7 +292,10 @@ int main(int argc, char* argv[]) {
     auto tvMenu = std::make_shared<Menu>();
     tvMenu->title = "TV";
     tvMenu->items = {
-        {"MTV", [&]() { menuStack.push(mtvMenu); }},
+        {"MTV", [&]() {
+            playGif("mtv.gif", 1.0);
+            menuStack.push(mtvMenu);
+        }},
         {"VHS", [&]() { menuStack.push(vhsMenu); }},
         {"CABLE", []() { system("echo Cable selected"); }}
     };
